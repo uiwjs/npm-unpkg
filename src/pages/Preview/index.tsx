@@ -56,7 +56,7 @@ function Preview(props = {} as Props) {
     <Content style={{ minWidth: 100, flex: 1, overflow: 'auto' }}>
       <ContentView />
     </Content>
-  ), [])
+  ), []);
   return (
     <Layout>
       <Header className={styles.header}>

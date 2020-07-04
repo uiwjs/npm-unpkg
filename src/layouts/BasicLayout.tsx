@@ -4,6 +4,7 @@ import { Switch, Route, Redirect, matchPath, useLocation } from 'react-router-do
 import dynamic from 'react-dynamic-loadable';
 import { Routers } from '@uiw-admin/router-control';
 import { DefaultProps } from '@uiw-admin/router-control';
+import GitHubCorners from '@uiw/react-github-corners';
 import { RootState } from '../models';
 import RenderChild from './RenderChild';
 
@@ -48,43 +49,51 @@ function BasicLayoutScreen(props = {} as Props) {
   const {routes, loadModels = () => []} = props;
   let location = useLocation();
   return (
-    <Switch >
-      {routes.map((item, index) => {
-        if (!item.path) {
-          return null;
-        }
-        if (props.location.pathname === item.path && item.redirect) {
+    <div>
+      <GitHubCorners
+        target="__blank"
+        bgColor="#202225"
+        size={54}
+        href="https://github.com/uiwjs/react-github-corners"
+      />
+      <Switch >
+        {routes.map((item, index) => {
+          if (!item.path) {
+            return null;
+          }
+          if (props.location.pathname === item.path && item.redirect) {
+            return (
+              <Redirect to={item.redirect} key={index}/>
+            );
+          }
+          if (!item.component) {
+            return null;
+          }
+          const modelFun = loadModels(item.models || []);
+          const Com = dynamicWrapper(item.component, modelFun) as any;
+          const match = matchPath(location.pathname, {
+            path: item.path,
+          });
           return (
-            <Redirect to={item.redirect} key={index}/>
+            <Route
+              exact
+              strict
+              key={index}
+              path={item.path}
+              render={(childProps) => (
+                <RenderChild
+                  {...props}
+                  {...childProps}
+                  routes={item.routes || []}
+                  match={match}
+                  child={Com}
+                />
+              )}
+            />
           );
-        }
-        if (!item.component) {
-          return null;
-        }
-        const modelFun = loadModels(item.models || []);
-        const Com = dynamicWrapper(item.component, modelFun) as any;
-        const match = matchPath(location.pathname, {
-          path: item.path,
-        });
-        return (
-          <Route
-            exact
-            strict
-            key={index}
-            path={item.path}
-            render={(childProps) => (
-              <RenderChild
-                {...props}
-                {...childProps}
-                routes={item.routes || []}
-                match={match}
-                child={Com}
-              />
-            )}
-          />
-        );
-      })}
-    </Switch>
+        })}
+      </Switch>
+    </div>
   );
 }
 
