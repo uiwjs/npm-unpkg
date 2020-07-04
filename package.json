@@ -1,0 +1,55 @@
+{
+  "name": "npm-unpkg",
+  "version": "1.0.0",
+  "description": "A web application to view npm package files, Based on unpkg.",
+  "private": true,
+  "scripts": {
+    "start": "kkt start",
+    "build": "kkt build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/uiwjs/npm-unpkg.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@babel/runtime": "7.10.4",
+    "@rematch/core": "1.4.0",
+    "@rematch/loading": "1.2.1",
+    "@uiw-admin/router-control": "^4.0.3",
+    "@uiw/react-markdown-preview": "^1.0.8",
+    "@uiw/reset.css": "1.0.4",
+    "axios": "0.19.2",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "react-dynamic-loadable": "2.0.1",
+    "react-redux": "7.2.0",
+    "react-router-dom": "5.2.0",
+    "uiw": "4.6.2"
+  },
+  "devDependencies": {
+    "@kkt/loader-less": "5.9.0",
+    "@types/react": "16.9.34",
+    "@types/react-dom": "16.9.6",
+    "@types/react-redux": "7.1.7",
+    "@types/react-router-dom": "5.1.5",
+    "webpack-filter-warnings-plugin": "1.2.1",
+    "kkt": "5.9.0"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

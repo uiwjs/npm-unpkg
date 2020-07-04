@@ -1,0 +1,38 @@
+.content {
+  background-color: #343a40;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  // font-size: calc(10px + 2vmin);
+  // color: #fff;
+  > h1 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+    padding-bottom: 24px;
+  }
+}
+
+.input {
+  max-width: 420px;
+}
+
+.egLink {
+  color: #b1dcf1;
+  padding-top: 10px;
+  span {
+    margin-right: 10px;
+  }
+  a + a {
+    margin-left: 10px;
+  }
+  a {
+    color: #b1dcf1;
+    transition: color .3s;
+    &:hover {
+      color: #fff;
+    }
+  }
+}
