@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { connect } from 'react-redux';
 import Menu from '@uiw/react-menu';
 import Tag from '@uiw/react-tag';
@@ -8,6 +8,29 @@ import { DefaultProps } from '@uiw-admin/router-control';
 import { RootState, Dispatch } from '../../models';
 import { Files } from '../../models/global';
 import styles from './DirectoryTrees.module.less';
+
+const prettyBytes = (num: number, precision = 3, addSpace = true) => {
+  const UNITS = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+  if (Math.abs(num) < 1) return num + (addSpace ? ' ' : '') + UNITS[0];
+  const exponent = Math.min(Math.floor(Math.log10(num < 0 ? -num : num) / 3), UNITS.length - 1);
+  const n = Number(((num < 0 ? -num : num) / 1000 ** exponent).toPrecision(precision));
+  return (num < 0 ? '-' : '') + n + (addSpace ? ' ' : '') + UNITS[exponent];
+};
+
+function MeunItemView(props: { path?: string, filepath?: string; size?: number } = {}) {
+  return useMemo(() => (
+    <Menu.Item
+      tagName={NavLink}
+      title={props.filepath}
+      to={`/pkg/${props.path}`}
+      addonAfter={
+        <Tag color="#e0e0e0" title={(props.size && prettyBytes(props.size)) || ''} className={styles.tags} />
+      }
+      icon="file-text"
+      text={props.filepath!.replace(/^\//, '')}
+    />
+  ), [props.path, props.size, props.filepath]);
+}
 
 const mapState = ({ global, loading }: RootState) => ({
   loading: loading.effects.global.getDirectoryTrees,
@@ -24,6 +47,7 @@ type Props = connectedProps & DefaultProps;
 
 function DirectoryTrees(props = {} as Props) {
   const { pkgname, loading } = props;
+
   function renderMenuItem(data: Files[] = [], menuItems: any = []) {
     data.forEach((item, idx) => {
       if (item.type === 'directory') {
@@ -34,17 +58,7 @@ function DirectoryTrees(props = {} as Props) {
         );
       } else if (item.type === 'file') {
         menuItems.push(
-          <Menu.Item
-            tagName={NavLink}
-            title={`/pkg/${pkgname}/file${item.path}`}
-            to={`/pkg/${pkgname}/file${item.path}`}
-            key={idx}
-            addonAfter={
-              <Tag color="#e0e0e0" title={item.size || ''} className={styles.tags} style={{}} />
-            }
-            icon="file-text"
-            text={item.path.replace(/^\//, '')}
-          />
+          <MeunItemView key={idx} path={`${pkgname}/file${item.path}`} filepath={item.path} />
         );
       }
     });
