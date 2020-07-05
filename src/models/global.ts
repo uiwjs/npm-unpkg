@@ -47,6 +47,7 @@ export interface GlobalState {
   selectFile?: string;
   content?: string;
   extname?: string;
+  showSearch?: boolean;
   package?: PackageJSON;
   files?: Files[]
 }
@@ -65,6 +66,7 @@ export default createModel({
     content: '',
     extname: '',
     package: {} as PackageJSON,
+    showSearch: false,
   },
   reducers: {
     update: (state: any, payload: GlobalState): GlobalState => ({
@@ -104,12 +106,12 @@ export default createModel({
     async getFileContent(filepath: string = '', { global }: { global: GlobalState}) {
       if (!filepath) return;
       const dph = dispatch as Dispatch;
-      const type = filepath.replace(/([^\\/]+)\.([^\\/]+)/i, '$2');
+      const type = filepath.replace(/.+\./,'');
       const data: PackageJSON = await getFileContent(`${global.pkgname}/${filepath}`);
       if (typeof data === 'string' || !data) {
         dph.global.update({ content: data, extname: type });
       } else if (data && /\.(json|map)$/.test(filepath)) {
-        dph.global.update({ content: JSON.stringify(data, null, 2) });
+        dph.global.update({ content: JSON.stringify(data, null, 2), extname: type });
       }
     },
   }),

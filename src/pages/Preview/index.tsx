@@ -5,7 +5,6 @@ import Divider from '@uiw/react-divider';
 import Layout from '@uiw/react-layout';
 import Button from '@uiw/react-button';
 import Split from '@uiw/react-split';
-import Loader from '@uiw/react-loader';
 import { connect } from 'react-redux';
 import { DefaultProps } from '@uiw-admin/router-control';
 import DirectoryTrees from './DirectoryTrees';
@@ -35,7 +34,7 @@ type connectedProps = ReturnType<typeof mapState> &
 type Props = connectedProps & DefaultProps;
 
 function Preview(props = {} as Props) {
-  const { pkgname, package: Info, loading, setPkgname, getDirectoryTrees, getFileContent, getPackageJSON } = props;
+  const { pkgname, package: Info, setPkgname, getDirectoryTrees, getFileContent, getPackageJSON } = props;
   const params = useParams<Params>();
   useEffect(() => {
     if (!pkgname) {
@@ -45,6 +44,9 @@ function Preview(props = {} as Props) {
     }
   }, []);
   useEffect(() => {
+    document.title = `${params.org ? `${params.org}/` : ''}${params.name} - NPM UNPKG`;
+  }, [params.org, params.name]);
+  useEffect(() => {
     getFileContent(params.filename);
   }, [params.filename]);
   const nameView = useMemo(() => (
@@ -52,11 +54,6 @@ function Preview(props = {} as Props) {
       {Info.name ? `${Info.name}@${Info.version}` : `${params.org ? `${params.org}/` : ''}${params.name}`}
     </Button>
   ), [Info.name, Info.version, params.org]);
-  const contentView = useMemo(() => (
-    <Content style={{ minWidth: 100, flex: 1, overflow: 'auto' }}>
-      <ContentView />
-    </Content>
-  ), []);
   return (
     <Layout>
       <Header className={styles.header}>
@@ -95,11 +92,11 @@ function Preview(props = {} as Props) {
       <Layout className={styles.warpper}>
         <Split className={styles.warpper} style={{ height: 100 }}>
           <div style={{ minWidth: 210, width: 210, overflow: 'auto', backgroundColor: '#fff' }}>
-            <Loader loading={loading} style={{ width: '100%'}}>
-              <DirectoryTrees />
-            </Loader>
+            <DirectoryTrees />
           </div>
-          {contentView}
+          <Content style={{ minWidth: 100, flex: 1, overflow: 'auto', position: 'relative' }}>
+            <ContentView />
+          </Content>
         </Split>
       </Layout>
     </Layout>

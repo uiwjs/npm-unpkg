@@ -54,7 +54,7 @@ function BasicLayoutScreen(props = {} as Props) {
         target="__blank"
         bgColor="#202225"
         size={54}
-        href="https://github.com/uiwjs/react-github-corners"
+        href="https://github.com/uiwjs/npm-unpkg"
       />
       <Switch >
         {routes.map((item, index) => {

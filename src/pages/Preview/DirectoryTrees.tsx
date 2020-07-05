@@ -2,10 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Menu from '@uiw/react-menu';
 import Tag from '@uiw/react-tag';
+import Loader from '@uiw/react-loader';
 import { NavLink } from 'react-router-dom';
 import { DefaultProps } from '@uiw-admin/router-control';
 import { RootState, Dispatch } from '../../models';
 import { Files } from '../../models/global';
+import styles from './DirectoryTrees.module.less';
 
 const mapState = ({ global, loading }: RootState) => ({
   loading: loading.effects.global.getDirectoryTrees,
@@ -21,7 +23,7 @@ type connectedProps = ReturnType<typeof mapState> & ReturnType<typeof mapDispatc
 type Props = connectedProps & DefaultProps;
 
 function DirectoryTrees(props = {} as Props) {
-  const { pkgname } = props;
+  const { pkgname, loading } = props;
   function renderMenuItem(data: Files[] = [], menuItems: any = []) {
     data.forEach((item, idx) => {
       if (item.type === 'directory') {
@@ -38,7 +40,7 @@ function DirectoryTrees(props = {} as Props) {
             to={`/pkg/${pkgname}/file${item.path}`}
             key={idx}
             addonAfter={
-              <Tag color="#e0e0e0" title={item.size || ''} style={{color: '#333', padding: '1px 3px' ,transform: 'scale(.8)'}} />
+              <Tag color="#e0e0e0" title={item.size || ''} className={styles.tags} style={{}} />
             }
             icon="file-text"
             text={item.path.replace(/^\//, '')}
@@ -49,9 +51,11 @@ function DirectoryTrees(props = {} as Props) {
     return menuItems;
   }
   return (
-    <Menu theme="light" bordered={false}>
-      {renderMenuItem(props.files)}
-    </Menu>
+    <Loader loading={loading} style={{ width: '100%'}}>
+      <Menu theme="light" bordered={false}>
+        {renderMenuItem(props.files)}
+      </Menu>
+    </Loader>
   );
 }
 
