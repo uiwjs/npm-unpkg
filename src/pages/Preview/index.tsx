@@ -5,12 +5,14 @@ import Divider from '@uiw/react-divider';
 import Layout from '@uiw/react-layout';
 import Button from '@uiw/react-button';
 import Split from '@uiw/react-split';
+import Modal from '@uiw/react-modal';
 import { connect } from 'react-redux';
 import { DefaultProps } from '@uiw-admin/router-control';
 import DirectoryTrees from './DirectoryTrees';
 import ContentView from './Content';
-import { Params } from '../../models/global';
-import { RootState, Dispatch } from '../../models';
+import Search from '@/components/Search';
+import { Params } from '@/models/global';
+import { RootState, Dispatch } from '@/models';
 import styles from './index.module.less';
 
 const { Header, Content } = Layout;
@@ -19,6 +21,7 @@ const mapState = ({ global, loading }: RootState) => ({
   loading: loading.effects.global.getDirectoryTrees,
   pkgname: global.pkgname,
   package: global.package,
+  showSearch: global.showSearch,
 });
 
 const mapDispatch = (dispatch: any) => ({
@@ -34,10 +37,12 @@ type connectedProps = ReturnType<typeof mapState> &
 type Props = connectedProps & DefaultProps;
 
 function Preview(props = {} as Props) {
-  const { pkgname, package: Info, setPkgname, getDirectoryTrees, getFileContent, getPackageJSON } = props;
+  const { pkgname, package: Info, showSearch, setPkgname, getDirectoryTrees, getFileContent, getPackageJSON } = props;
+
   const params = useParams<Params>();
+  const urlPkgName = `${params.org ? `${params.org}/` : ''}${params.name}`;
   useEffect(() => {
-    if (!pkgname) {
+    if (!pkgname || urlPkgName !== pkgname) {
       setPkgname(params);
       getDirectoryTrees();
       getPackageJSON();
@@ -50,13 +55,25 @@ function Preview(props = {} as Props) {
     getFileContent(params.filename);
   }, [params.filename]);
   const nameView = useMemo(() => (
-    <Button size="small" type="link" style={{ fontSize: 21 }}>
-      {Info.name ? `${Info.name}@${Info.version}` : `${params.org ? `${params.org}/` : ''}${params.name}`}
+    <Button size="small" type="link" onClick={() => props.update({ showSearch: true })} style={{ fontSize: 21 }}>
+      {Info.name ? `${Info.name}@${Info.version}` : urlPkgName}
     </Button>
   ), [Info.name, Info.version, params.org]);
   return (
     <Layout>
       <Header className={styles.header}>
+        <Modal
+          title="Select package"
+          isOpen={showSearch}
+          icon="information"
+          type="primary"
+          useButton={false}
+          onConfirm={() => console.log('您点击了确定按钮！')}
+          onCancel={() => console.log('您点击了取消按钮！')}
+          onClosed={() => props.update({ showSearch: false })}
+        >
+          <Search {...props} />
+        </Modal>
         {nameView}
         {Info.name && (
           <Fragment>

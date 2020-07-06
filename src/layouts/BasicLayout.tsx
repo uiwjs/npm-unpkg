@@ -1,11 +1,10 @@
-import React, { } from 'react';
-import { connect } from 'react-redux';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React from 'react';
 import { Switch, Route, Redirect, matchPath, useLocation } from 'react-router-dom';
 import dynamic from 'react-dynamic-loadable';
 import { Routers } from '@uiw-admin/router-control';
 import { DefaultProps } from '@uiw-admin/router-control';
 import GitHubCorners from '@uiw/react-github-corners';
-import { RootState } from '../models';
 import RenderChild from './RenderChild';
 
 export interface RoutersProps {
@@ -27,15 +26,7 @@ const dynamicWrapper = (component: () => Promise<any>, modelFun: Promise<any>[])
     LoadingComponent: () => <span>loading....</span>,
   });
 
-const mapState = ({ global, loading }: RootState) => ({
-  global: global,
-  loading: loading.effects,
-});
-
-const mapDispatch = (dispatch: any) => ({});
-
-type connectedProps = ReturnType<typeof mapState> & ReturnType<typeof mapDispatch>;
-type Props = connectedProps & DefaultProps & {
+type Props = DefaultProps & {
   /**
    * 加载 models
    */
@@ -44,8 +35,7 @@ type Props = connectedProps & DefaultProps & {
   routes?: Routers[];
 };
 
-
-function BasicLayoutScreen(props = {} as Props) {
+export default function BasicLayoutScreen(props = {} as Props) {
   const {routes, loadModels = () => []} = props;
   let location = useLocation();
   return (
@@ -96,5 +86,3 @@ function BasicLayoutScreen(props = {} as Props) {
     </div>
   );
 }
-
-export default connect(mapState, mapDispatch)(BasicLayoutScreen);

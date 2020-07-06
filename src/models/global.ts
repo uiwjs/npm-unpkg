@@ -104,8 +104,11 @@ export default createModel({
       }
     },
     async getFileContent(filepath: string = '', { global }: { global: GlobalState}) {
-      if (!filepath) return;
       const dph = dispatch as Dispatch;
+      if (!filepath) {
+        dph.global.update({ content: '', extname: '' });
+        return;
+      };
       const type = filepath.replace(/.+\./,'');
       const data: PackageJSON = await getFileContent(`${global.pkgname}/${filepath}`);
       if (typeof data === 'string' || !data) {

@@ -58,7 +58,7 @@ function DirectoryTrees(props = {} as Props) {
         );
       } else if (item.type === 'file') {
         menuItems.push(
-          <MeunItemView key={idx} path={`${pkgname}/file${item.path}`} filepath={item.path} />
+          <MeunItemView key={idx} path={`${pkgname}/file${item.path}`} filepath={item.path} size={item.size} />
         );
       }
     });
