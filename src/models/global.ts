@@ -1,6 +1,7 @@
 import { createModel } from '@rematch/core';
 import { Dispatch } from './';
 import { getDirectoryTrees, getFileContent } from '@/servers/unpkg';
+import {dataFilesSort} from '@/utils/utils';
 
 export interface Files {
   path: string;
@@ -93,7 +94,8 @@ export default createModel({
       const dph = dispatch as Dispatch;
       const data: Files = await getDirectoryTrees(global.pkgname!);
       if (data && data.files) {
-        dph.global.update({ files: data.files });
+        const dataSort = dataFilesSort(data.files);
+        dph.global.update({ files: dataSort });
       }
     },
     async getPackageJSON(_, { global }: { global: GlobalState}) {

@@ -27,7 +27,7 @@
     "react-dynamic-loadable": "2.0.1",
     "react-redux": "7.2.0",
     "react-router-dom": "5.2.0",
-    "uiw": "4.6.2"
+    "uiw": "4.6.4"
   },
   "devDependencies": {
     "@kkt/loader-less": "5.9.0",
