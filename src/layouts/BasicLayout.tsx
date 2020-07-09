@@ -6,6 +6,7 @@ import { Routers } from '@uiw-admin/router-control';
 import { DefaultProps } from '@uiw-admin/router-control';
 import GitHubCorners from '@uiw/react-github-corners';
 import RenderChild from './RenderChild';
+import Loading from '@/components/Loading';
 
 export interface RoutersProps {
   path: string;
@@ -23,7 +24,7 @@ const dynamicWrapper = (component: () => Promise<any>, modelFun: Promise<any>[])
   dynamic({
     models: (modelFun || null) as any,
     component,
-    LoadingComponent: () => <span>loading....</span>,
+    LoadingComponent: () => <Loading />,
   });
 
 type Props = DefaultProps & {
