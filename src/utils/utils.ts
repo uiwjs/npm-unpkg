@@ -42,7 +42,7 @@ export function dataFilesSort(files: Files[] = [], resule: Files[] = []) {
   resule = nameSort(files);
   resule = resule.map<Files>((file) => {
     if (file.files) {
-      file.files = nameSort(file.files);
+      file.files = dataFilesSort(file.files);
     }
     return file;
   });
