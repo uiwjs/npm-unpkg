@@ -36,7 +36,7 @@
     "@types/react-redux": "7.1.7",
     "@types/react-router-dom": "5.1.5",
     "webpack-filter-warnings-plugin": "1.2.1",
-    "kkt": "5.9.0"
+    "kkt": "5.10.3"
   },
   "eslintConfig": {
     "extends": "react-app"
