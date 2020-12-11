@@ -10,6 +10,7 @@ import './index.css';
 ReactDOM.render( 
   <Provider store={store}>
     <Controller
+      isHashRouter
       routes={routers}
       loadModels={(models = []) => {
         return models.map((m) => {
