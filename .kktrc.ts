@@ -30,5 +30,7 @@ export default (
       VERSION: JSON.stringify(pkg.version),
     }),
   );
+
+  conf.output = { ...conf.output, publicPath: './' };
   return conf;
 };
