@@ -1,0 +1,2 @@
+(this["webpackJsonpnpm-unpkg"]=this["webpackJsonpnpm-unpkg"]||[]).push([[425],{558:function(s,n){var p=Prism.util.clone(Prism.languages.typescript);Prism.languages.tsx=Prism.languages.extend("jsx",p)}}]);
+//# sourceMappingURL=425.b873095d.chunk.js.map
