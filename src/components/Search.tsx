@@ -33,12 +33,12 @@ function Search(props = {} as Props) {
       label: 'react'
     },
     {
-      to: '/pkg/react@16',
-      label: 'react@16'
+      to: '/pkg/react@17',
+      label: 'react@17'
     },
     {
-      to: '/pkg/react@16.8.0',
-      label: 'react@16.8.0'
+      to: '/pkg/react@17.0.1',
+      label: 'react@17.0.1'
     },
   ]);
   return (
