@@ -47,7 +47,7 @@ function Preview(props = {} as Props) {
       getDirectoryTrees();
       getPackageJSON();
     }
-  }, []);
+  }, [pkgname, urlPkgName, pkgname]);
   useEffect(() => {
     document.title = `${params.org ? `${params.org}/` : ''}${params.name} - NPM UNPKG`;
   }, [params.org, params.name]);
