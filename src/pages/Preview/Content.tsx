@@ -51,7 +51,7 @@ function DirectoryTrees(props = {} as Props) {
           }}
         />
       )}
-      <div>{content}</div>
+      {content}
     </Fragment>
   );
 }
