@@ -24,6 +24,7 @@ function DirectoryTrees(props = {} as Props) {
   const content = useMemo(() => {
     let ext = extname;
     switch (extname) {
+      case 'tsx': ext = 'typescript'; break;
       case 'ts': ext = 'typescript'; break;
       case 'map': ext = 'json'; break;
       case 'markdown': ext = 'md'; break;
