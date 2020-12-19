@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://src/index.css"],"names":[],"mappings":"AAAA,KACE,iHACF,CAEA,gBACE,WAAY,CACZ,wBACF","file":"main.16723686.chunk.css","sourcesContent":["body {\n  font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;\n}\n\n#root, body, html {\n  height: 100%;\n  background-color: #343a40;\n}"]}

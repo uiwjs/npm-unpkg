@@ -1,0 +1,2 @@
+(this["webpackJsonpnpm-unpkg"]=this["webpackJsonpnpm-unpkg"]||[]).push([[148],{290:function(m,n){Prism.languages.git={comment:/^#.*/m,deleted:/^[-\u2013].*/m,inserted:/^\+.*/m,string:/("|')(?:\\.|(?!\1)[^\\\r\n])*\1/m,command:{pattern:/^.*\$ git .*$/m,inside:{parameter:/\s--?\w+/m}},coord:/^@@.*@@$/m,commit_sha1:/^commit \w{40}$/m}}}]);
+//# sourceMappingURL=148.6bd704ae.chunk.js.map
