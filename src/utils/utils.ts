@@ -1,4 +1,4 @@
-import { Files } from '@/models/global';
+import { Files } from '../models/global';
 
 // 拼接url参数
 export function splitUrl(url: string, options: { [x: string]: any }) {

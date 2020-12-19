@@ -6,7 +6,7 @@ import { Routers } from '@uiw-admin/router-control';
 import { DefaultProps } from '@uiw-admin/router-control';
 import GitHubCorners from '@uiw/react-github-corners';
 import RenderChild from './RenderChild';
-import Loading from '@/components/Loading';
+import Loading from '../components/Loading';
 
 export interface RoutersProps {
   path: string;

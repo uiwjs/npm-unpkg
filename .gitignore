@@ -1,9 +1,25 @@
-node_modules
-lib
 build
 npm-debug.log*
 package-lock.json
+# dependencies
+node_modules
+.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+/build
+
+# misc
 .DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+.eslintcache
 .cache
 .rdoc-dist
 .vscode

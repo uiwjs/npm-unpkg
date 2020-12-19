@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { DefaultProps } from '@uiw-admin/router-control';
-import { RootState, Dispatch } from '@/models';
-import Search from '@/components/Search';
+import { RootState, Dispatch } from '../../models';
+import Search from '../../components/Search';
 import styles from './index.module.less';
 
 const mapState = ({ global, loading }: RootState) => ({

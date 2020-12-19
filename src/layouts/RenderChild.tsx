@@ -2,15 +2,13 @@
 import React, { useMemo } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import {RoutersProps} from './BasicLayout';
-
-
 interface Props {
   routes?: RoutersProps[];
   child?: any;
   match?: any;
 }
 
-export default (props: Props = {}) => {
+const RenderChild = (props: Props = {}) => {
   const { match, child: Child } = props;
   let history = useHistory();
   let location = useLocation();
@@ -22,3 +20,5 @@ export default (props: Props = {}) => {
     );
   }, [history.location.key]);
 };
+
+export default RenderChild 

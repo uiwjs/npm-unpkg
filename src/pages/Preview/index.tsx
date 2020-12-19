@@ -10,9 +10,9 @@ import { connect } from 'react-redux';
 import { DefaultProps } from '@uiw-admin/router-control';
 import DirectoryTrees from './DirectoryTrees';
 import ContentView from './Content';
-import Search from '@/components/Search';
-import { Params } from '@/models/global';
-import { RootState, Dispatch } from '@/models';
+import Search from '../../components/Search';
+import { Params } from '../../models/global';
+import { RootState, Dispatch } from '../../models';
 import styles from './index.module.less';
 
 const { Header, Content } = Layout;

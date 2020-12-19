@@ -1,7 +1,7 @@
 import { createModel } from '@rematch/core';
 import { Dispatch } from './';
-import { getDirectoryTrees, getFileContent } from '@/servers/unpkg';
-import {dataFilesSort} from '@/utils/utils';
+import { getDirectoryTrees, getFileContent } from '../servers/unpkg';
+import {dataFilesSort} from '../utils/utils';
 
 export interface Files {
   path: string;
