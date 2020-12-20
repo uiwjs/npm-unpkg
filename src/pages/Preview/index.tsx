@@ -20,7 +20,8 @@ const { Header, Content } = Layout;
 const mapState = ({ global, loading }: RootState) => ({
   loading: loading.effects.global.getDirectoryTrees,
   pkgname: global.pkgname,
-  package: global.package,
+  notFindPkg: global.notFindPkg,
+  package: global.package || {},
   showSearch: global.showSearch,
 });
 
@@ -59,6 +60,7 @@ function Preview(props = {} as Props) {
       {Info.name ? `${Info.name}@${Info.version}` : urlPkgName}
     </Button>
   ), [Info.name, Info.version, params.org]);
+  console.log('>>>>>>', Info.name)
   return (
     <Layout>
       <Header className={styles.header}>
@@ -103,6 +105,12 @@ function Preview(props = {} as Props) {
                 <span title={Info.description}>{Info.description}</span>
               </Fragment>
             )}
+          </Fragment>
+        )}
+        {props.notFindPkg && (
+          <Fragment>
+            <Divider type="vertical" />
+            <span>Cannot find package {urlPkgName}.</span>
           </Fragment>
         )}
       </Header>

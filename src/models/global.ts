@@ -44,13 +44,14 @@ export interface PackageJSON {
 }
 
 export interface GlobalState {
+  notFindPkg?: boolean;
   pkgname?: string;
   selectFile?: string;
   content?: string;
   extname?: string;
   showSearch?: boolean;
   package?: PackageJSON;
-  files?: Files[]
+  files?: Files[];
 }
 
 export type Params = {
@@ -61,6 +62,7 @@ export type Params = {
 
 export default createModel({
   state: {
+    notFindPkg: false,
     pkgname: '',
     files: [],
     selectFile: '',
@@ -96,13 +98,20 @@ export default createModel({
       if (data && data.files) {
         const dataSort = dataFilesSort(data.files);
         dph.global.update({ files: dataSort });
+      } else {
+        dph.global.update({ files: [] });
       }
     },
     async getPackageJSON(_, { global }: { global: GlobalState}) {
       const dph = dispatch as Dispatch;
       const data: PackageJSON = await getFileContent(`${global.pkgname}/package.json`);
       if (data && typeof data === 'object') {
-        dph.global.update({ package: {...data} });
+        dph.global.update({ package: {...data }, notFindPkg: false });
+      } else {
+        dph.global.update({
+          package: undefined,
+          notFindPkg: true,
+        });
       }
     },
     async getFileContent(filepath: string = '', { global }: { global: GlobalState}) {
