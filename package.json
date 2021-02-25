@@ -35,7 +35,7 @@
     "@types/react-dom": "17.0.0",
     "@types/react-redux": "7.1.12",
     "@types/react-router-dom": "5.1.6",
-    "kkt": "6.0.11"
+    "kkt": "6.7.2"
   },
   "eslintConfig": {
     "extends": [
