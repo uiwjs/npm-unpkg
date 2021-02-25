@@ -1411,10 +1411,10 @@
     "@types/yargs" "^15.0.0"
     chalk "^4.0.0"
 
-"@kkt/less-modules@6.0.11":
-  version "6.0.11"
-  resolved "https://registry.yarnpkg.com/@kkt/less-modules/-/less-modules-6.0.11.tgz#82a426b80b3d380ec229392bef4675005c7f59d7"
-  integrity sha512-8d14AhOazCbN0f0WnASM80pofuW4S7WOkoW0f3Gt7J7sB27//HQlpzS38O52xm9ZBKdi0sslGXDr8LGltYFWcA==
+"@kkt/less-modules@6.7.2":
+  version "6.7.2"
+  resolved "https://registry.yarnpkg.com/@kkt/less-modules/-/less-modules-6.7.2.tgz#29749eb2b40ffc8ed4de3c8e4182645c2d3e6933"
+  integrity sha512-s5f7T6GhnqsD4dCfG5UtlYQf4RQhV+vnPIDLLpXuVPDQQJXm7k6hPJC/oCToDN4/sAP83cskRaJ4LbwgPPzfrQ==
   dependencies:
     less "^3.13.1"
     less-loader "^7.1.0"
@@ -3286,10 +3286,10 @@ axe-core@^4.0.2:
   resolved "https://registry.yarnpkg.com/axe-core/-/axe-core-4.1.1.tgz#70a7855888e287f7add66002211a423937063eaf"
   integrity sha512-5Kgy8Cz6LPC9DJcNb3yjAXTu3XihQgEdnIg50c//zOC/MyLP0Clg+Y8Sh9ZjjnvBrDZU4DgXS9C3T9r4/scGZQ==
 
-axios@0.21.0:
-  version "0.21.0"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-0.21.0.tgz#26df088803a2350dff2c27f96fef99fe49442aca"
-  integrity sha512-fmkJBknJKoZwem3/IKSSLpkdNXZeBu5Q7GA/aRsr2btgrptmSCxi2oFjZHqGdK9DoTil9PIHlPIZw2EcRJXRvw==
+axios@0.21.1:
+  version "0.21.1"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.21.1.tgz#22563481962f4d6bde9a76d516ef0e5d3c09b2b8"
+  integrity sha512-dKQiRHxGD9PPRIUNIWvZhPTPpl1rf/OxTYKsqKUDjBwYylTvV7SjSHJb9ratfyzM6wCdLCOYLzs73qpg5c4iGA==
   dependencies:
     follow-redirects "^1.10.0"
 
