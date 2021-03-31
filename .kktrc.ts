@@ -1,9 +1,9 @@
 import webpack, { Configuration } from 'webpack';
 import lessModules from '@kkt/less-modules';
+import { LoaderConfOptions } from 'kkt';
 import pkg from './package.json';
-import { ParsedArgs } from 'minimist';
 
-export default (conf: Configuration, env: string, options: ParsedArgs) => {
+export default (conf: Configuration, env: 'production' | 'development', options: LoaderConfOptions) => {
   conf = lessModules(conf, env, options);
 
   // Get the project version.
@@ -12,6 +12,8 @@ export default (conf: Configuration, env: string, options: ParsedArgs) => {
       VERSION: JSON.stringify(pkg.version),
     }),
   );
-  conf.output = { ...conf.output, publicPath: './' };
+  if (env === 'production') {
+    conf.output = { ...conf.output, publicPath: './' };
+  }
   return conf;
 }
