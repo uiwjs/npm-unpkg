@@ -6,61 +6,49 @@ import Layout from '@uiw/react-layout';
 import Button from '@uiw/react-button';
 import Split from '@uiw/react-split';
 import Modal from '@uiw/react-modal';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { DefaultProps } from '@uiw-admin/router-control';
 import DirectoryTrees from './DirectoryTrees';
 import ContentView from './Content';
 import Search from '../../components/Search';
 import { Params } from '../../models/global';
 import { RootState, Dispatch } from '../../models';
+import { PackageJSON } from '../../models/global';
 import styles from './index.module.less';
 
 const { Header, Content } = Layout;
 
-const mapState = ({ global, loading }: RootState) => ({
-  loading: loading.effects.global.getDirectoryTrees,
-  pkgname: global.pkgname,
-  notFindPkg: global.notFindPkg,
-  package: global.package || {},
-  showSearch: global.showSearch,
-});
+export default function Preview(props = {} as DefaultProps) {
+  const { showSearch, notFindPkg, package: Info, pkgname } = useSelector(({ global, loading }: RootState) => ({
+    loading: loading.effects.global.getDirectoryTrees,
+    pkgname: global.pkgname,
+    notFindPkg: global.notFindPkg,
+    package: (global.package || {}) as PackageJSON,
+    showSearch: global.showSearch,
+  }));
 
-const mapDispatch = (dispatch: any) => ({
-  update: (dispatch as Dispatch).global.update,
-  setPkgname: (dispatch as Dispatch).global.setPkgname,
-  getDirectoryTrees: (dispatch as Dispatch).global.getDirectoryTrees,
-  getFileContent: (dispatch as Dispatch).global.getFileContent,
-  getPackageJSON: (dispatch as Dispatch).global.getPackageJSON,
-});
-
-type connectedProps = ReturnType<typeof mapState> &
-  ReturnType<typeof mapDispatch>;
-type Props = connectedProps & DefaultProps;
-
-function Preview(props = {} as Props) {
-  const { pkgname, package: Info, showSearch, setPkgname, getDirectoryTrees, getFileContent, getPackageJSON } = props;
+  const dispatch = useDispatch<Dispatch>();
 
   const params = useParams<Params>();
   const urlPkgName = `${params.org ? `${params.org}/` : ''}${params.name}`;
   useEffect(() => {
     if (!pkgname || urlPkgName !== pkgname) {
-      setPkgname(params);
-      getDirectoryTrees();
-      getPackageJSON();
+      dispatch.global.setPkgname(params);
+      dispatch.global.getDirectoryTrees();
+      dispatch.global.getPackageJSON();
     }
   }, [pkgname, urlPkgName, pkgname]);
   useEffect(() => {
     document.title = `${params.org ? `${params.org}/` : ''}${params.name} - NPM UNPKG`;
   }, [params.org, params.name]);
   useEffect(() => {
-    getFileContent(params.filename);
+    dispatch.global.getFileContent(params.filename);
   }, [params.filename]);
   const nameView = useMemo(() => (
-    <Button size="small" type="link" onClick={() => props.update({ showSearch: true })} style={{ fontSize: 21 }}>
-      {Info.name ? `${Info.name}@${Info.version}` : urlPkgName}
+    <Button size="small" type="link" onClick={() => dispatch.global.update({ showSearch: true })} style={{ fontSize: 21 }}>
+      {Info && Info.name ? `${Info.name}@${Info.version}` : urlPkgName}
     </Button>
   ), [Info.name, Info.version, params.org]);
-  console.log('>>>>>>', Info.name)
   return (
     <Layout>
       <Header className={styles.header}>
@@ -72,7 +60,7 @@ function Preview(props = {} as Props) {
           useButton={false}
           onConfirm={() => console.log('您点击了确定按钮！')}
           onCancel={() => console.log('您点击了取消按钮！')}
-          onClosed={() => props.update({ showSearch: false })}
+          onClosed={() => dispatch.global.update({ showSearch: false })}
         >
           <Search {...props} />
         </Modal>
@@ -107,7 +95,7 @@ function Preview(props = {} as Props) {
             )}
           </Fragment>
         )}
-        {props.notFindPkg && (
+        {notFindPkg && (
           <Fragment>
             <Divider type="vertical" />
             <span>Cannot find package {urlPkgName}.</span>
@@ -127,5 +115,3 @@ function Preview(props = {} as Props) {
     </Layout>
   );
 }
-
-export default connect(mapState, mapDispatch)(Preview);

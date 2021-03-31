@@ -1,5 +1,5 @@
 import { createModel } from '@rematch/core';
-import { Dispatch } from './';
+import { RootModel } from './';
 import { getDirectoryTrees, getFileContent } from '../servers/unpkg';
 import {dataFilesSort} from '../utils/utils';
 
@@ -60,7 +60,7 @@ export type Params = {
   filename?: string;
 }
 
-export default createModel({
+export const global = createModel<RootModel>()({
   state: {
     notFindPkg: false,
     pkgname: '',
@@ -70,63 +70,62 @@ export default createModel({
     extname: '',
     package: {} as PackageJSON,
     showSearch: false,
-  },
+  } as GlobalState,
   reducers: {
-    update: (state: any, payload: GlobalState): GlobalState => ({
+    update: (state, payload: GlobalState) => ({
       ...state,
       ...payload,
     }),
   },
-  effects: (dispatch: any) => ({
-    async setPkgname(params: Params = {}) {
-      const dph = dispatch as Dispatch;
-      const { name, org } = params;
-      const state: GlobalState = {};
-      if (!org && name) {
-        state.pkgname = name;
-      } else if (org && name) {
-        state.pkgname = `${org}/${name}`;
-      }
-      if (params.filename) {
-        state.selectFile = params.filename;
-      }
-      dph.global.update({ ...state });
-    },
-    async getDirectoryTrees(_, { global }: { global: GlobalState}) {
-      const dph = dispatch as Dispatch;
-      const data: Files = await getDirectoryTrees(global.pkgname!);
-      if (data && data.files) {
-        const dataSort = dataFilesSort(data.files);
-        dph.global.update({ files: dataSort });
-      } else {
-        dph.global.update({ files: [] });
-      }
-    },
-    async getPackageJSON(_, { global }: { global: GlobalState}) {
-      const dph = dispatch as Dispatch;
-      const data: PackageJSON = await getFileContent(`${global.pkgname}/package.json`);
-      if (data && typeof data === 'object') {
-        dph.global.update({ package: {...data }, notFindPkg: false });
-      } else {
-        dph.global.update({
-          package: undefined,
-          notFindPkg: true,
-        });
-      }
-    },
-    async getFileContent(filepath: string = '', { global }: { global: GlobalState}) {
-      const dph = dispatch as Dispatch;
-      if (!filepath) {
-        dph.global.update({ content: '', extname: '' });
-        return;
-      };
-      const type = filepath.replace(/.+\./,'');
-      const data: PackageJSON = await getFileContent(`${global.pkgname}/${filepath}`);
-      if (typeof data === 'string' || !data) {
-        dph.global.update({ content: data, extname: type });
-      } else if (data && /\.(json|map)$/.test(filepath)) {
-        dph.global.update({ content: JSON.stringify(data, null, 2), extname: type });
-      }
-    },
-  }),
+  effects: (dispatch) =>  {
+		const { global } = dispatch
+    return {
+      async setPkgname(params: Params) {
+        const { name, org } = params || {};
+        const state: GlobalState = {};
+        if (!org && name) {
+          state.pkgname = name;
+        } else if (org && name) {
+          state.pkgname = `${org}/${name}`;
+        }
+        if (params.filename) {
+          state.selectFile = params.filename;
+        }
+        global.update({ ...state });
+      },
+      async getDirectoryTrees(_, state): Promise<any> {
+        const data: Files = await getDirectoryTrees(state.global.pkgname!);
+        if (data && data.files) {
+          const dataSort = dataFilesSort(data.files);
+          global.update({ files: dataSort });
+        } else {
+          global.update({ files: [] });
+        }
+      },
+      async getPackageJSON(_, state) {
+        const data: PackageJSON = await getFileContent(`${state.global.pkgname}/package.json`);
+        if (data && typeof data === 'object') {
+          global.update({ package: {...data }, notFindPkg: false });
+        } else {
+          global.update({
+            package: undefined,
+            notFindPkg: true,
+          });
+        }
+      },
+      async getFileContent(filepath: string = '', state) {
+        if (!filepath) {
+          dispatch.global.update({ content: '', extname: '' });
+          return;
+        };
+        const type = filepath.replace(/.+\./,'');
+        const data: PackageJSON = await getFileContent(`${state.global.pkgname}/${filepath}`);
+        if (typeof data === 'string' || !data) {
+          dispatch.global.update({ content: data, extname: type });
+        } else if (data && /\.(json|map)$/.test(filepath)) {
+          dispatch.global.update({ content: JSON.stringify(data, null, 2), extname: type });
+        }
+      },
+    }
+  }
 });

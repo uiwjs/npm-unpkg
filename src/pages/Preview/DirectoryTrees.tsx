@@ -1,11 +1,10 @@
 import React, { useMemo } from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Menu from '@uiw/react-menu';
 import Tag from '@uiw/react-tag';
 import Loader from '@uiw/react-loader';
 import { NavLink } from 'react-router-dom';
-import { DefaultProps } from '@uiw-admin/router-control';
-import { RootState, Dispatch } from '../../models';
+import { RootState } from '../../models';
 import { Files } from '../../models/global';
 import styles from './DirectoryTrees.module.less';
 
@@ -32,21 +31,12 @@ function MeunItemView(props: { path?: string, filepath?: string; size?: number }
   ), [props.path, props.size, props.filepath]);
 }
 
-const mapState = ({ global, loading }: RootState) => ({
-  loading: loading.effects.global.getDirectoryTrees,
-  files: global.files,
-  pkgname: global.pkgname,
-});
-
-const mapDispatch = (dispatch: any) => ({
-  update: (dispatch as Dispatch).global.update,
-});
-
-type connectedProps = ReturnType<typeof mapState> & ReturnType<typeof mapDispatch>;
-type Props = connectedProps & DefaultProps;
-
-function DirectoryTrees(props = {} as Props) {
-  const { pkgname, loading } = props;
+export default function DirectoryTrees() {
+  const { loading, files, pkgname } = useSelector(({ global, loading }: RootState) => ({
+    loading: loading.effects.global.getDirectoryTrees,
+    files: global.files,
+    pkgname: global.pkgname,
+  }));
 
   function renderMenuItem(data: Files[] = [], menuItems: any = []) {
     data.forEach((item, idx) => {
@@ -67,10 +57,8 @@ function DirectoryTrees(props = {} as Props) {
   return (
     <Loader loading={loading} style={{ width: '100%'}}>
       <Menu theme="light" bordered={false}>
-        {renderMenuItem(props.files)}
+        {renderMenuItem(files)}
       </Menu>
     </Loader>
   );
 }
-
-export default connect(mapState, mapDispatch)(DirectoryTrees);

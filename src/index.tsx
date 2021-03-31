@@ -16,7 +16,7 @@ ReactDOM.render(
         return models.map((m) => {
           return import(`./models/${m}.ts`).then((md) => {
             const modelData = md.default || md;
-            store.model({ name: m, ...modelData });
+            store.addModel({ name: m, ...modelData });
           });
         })
       }}

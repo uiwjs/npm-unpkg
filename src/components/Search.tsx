@@ -1,23 +1,14 @@
 import React, {useState, Fragment} from 'react';
 import Input from '@uiw/react-input';
 import Button from '@uiw/react-button';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { DefaultProps } from '@uiw-admin/router-control';
 import { Dispatch } from '../models';
 import { Link }from 'react-router-dom';
 import styles from './Search.module.less';
 
-const mapState = () => ({ });
-const mapDispatch = (dispatch: any) => ({
-  update: (dispatch as Dispatch).global.update,
-  setPkgname: (dispatch as Dispatch).global.setPkgname,
-});
-
-type connectedProps = ReturnType<typeof mapState> &
-  ReturnType<typeof mapDispatch>;
-type Props = connectedProps & DefaultProps;
-
-function Search(props = {} as Props) {
+export default function Search(props = {} as DefaultProps) {
+  const dispatch = useDispatch<Dispatch>();
   const [value, setValue] = useState<string>();
   const [links] = useState<{to: string, label: string}[]>([
     {
@@ -52,9 +43,8 @@ function Search(props = {} as Props) {
         }}
         addonAfter={
           <Button onClick={() => {
-            props.setPkgname(value);
             if (value) {
-              props.update({ showSearch: false });
+              dispatch.global.update({ showSearch: false });
               props.history.push(`/pkg/${value}`);
             }
           }} icon="arrow-right" size="small" basic type="light" />
@@ -71,7 +61,7 @@ function Search(props = {} as Props) {
               onClick={(e) => {
                 e.persist();
                 e.preventDefault();
-                props.update({ showSearch: false });
+                dispatch.global.update({ showSearch: false });
                 props.history.push(item.to);
               }}
             >
@@ -84,6 +74,6 @@ function Search(props = {} as Props) {
   );
 }
 
-const searchView = connect(mapState, mapDispatch)(Search);
-type SearchView = typeof Search;
-export default searchView as SearchView;
+// const searchView = connect(mapState, mapDispatch)(Search);
+// type SearchView = typeof Search;
+// export default searchView as SearchView;

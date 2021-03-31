@@ -1,27 +1,18 @@
 import React, { useMemo, Fragment } from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Loader from '@uiw/react-loader';
 import MarkdownPreview from '@uiw/react-markdown-preview';
-import { DefaultProps } from '@uiw-admin/router-control';
-import { RootState, Dispatch } from '../../models';
+import { RootState } from '../../models';
 import styles from './Content.module.less';
 
-const mapState = ({ global, loading }: RootState) => ({
-  loading: loading.effects.global.getFileContent,
-  content: global.content,
-  extname: global.extname,
-});
-
-const mapDispatch = (dispatch: any) => ({
-  update: (dispatch as Dispatch).global.update,
-});
-
-type connectedProps = ReturnType<typeof mapState> & ReturnType<typeof mapDispatch>;
-type Props = connectedProps & DefaultProps;
-
-function DirectoryTrees(props = {} as Props) {
-  const { extname } = props;
-  const content = useMemo(() => {
+export default function DirectoryTrees() {
+  const { loading, content, extname } = useSelector(({ global, loading }: RootState) => ({
+    loading: loading.effects.global.getFileContent,
+    content: global.content,
+    extname: global.extname,
+    global,
+  }));
+  const contentView = useMemo(() => {
     let ext = extname;
     switch (extname) {
       case 'tsx': ext = 'typescript'; break;
@@ -31,18 +22,18 @@ function DirectoryTrees(props = {} as Props) {
       default: break;
     }
     if (extname === 'md') {
-      return <MarkdownPreview style={{ padding: 25 }} source={props.content} />
+      return <MarkdownPreview style={{ padding: 25 }} source={content || ''} />
     }
     if (extname) {
-      return <MarkdownPreview className={styles.code} source={`\`\`\`${ext}\n${props.content}\n\`\`\``} />
+      return <MarkdownPreview className={styles.code} source={`\`\`\`${ext}\n${content}\n\`\`\``} />
     }
-    return <pre style={{ padding: 25 }}>{props.content}</pre>;
-  }, [extname, props.content]);
+    return <pre style={{ padding: 25 }}>{content}</pre>;
+  }, [extname, content]);
   return (
     <Fragment>
-      {props.loading && (
+      {loading && (
         <Loader
-          loading={props.loading}
+          loading={loading}
           style={{
             width: '100%',
             height: '100%',
@@ -52,9 +43,9 @@ function DirectoryTrees(props = {} as Props) {
           }}
         />
       )}
-      {content}
+      {contentView}
     </Fragment>
   );
 }
 
-export default connect(mapState, mapDispatch)(DirectoryTrees);
+// export default connect(mapState, mapDispatch)(DirectoryTrees);
