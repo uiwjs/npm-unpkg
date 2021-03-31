@@ -1,2 +1,0 @@
-(this["webpackJsonpnpm-unpkg"]=this["webpackJsonpnpm-unpkg"]||[]).push([[110],{253:function(n,t){Prism.languages.editorconfig={comment:/[;#].*/,section:{pattern:/(^[ \t]*)\[.+]/m,lookbehind:!0,alias:"keyword",inside:{regex:/\\\\[\[\]{},!?.*]/,operator:/[!?]|\.\.|\*{1,2}/,punctuation:/[\[\]{},]/}},property:{pattern:/(^[ \t]*)[^\s=]+(?=[ \t]*=)/m,lookbehind:!0},value:{pattern:/=.*/,alias:"string",inside:{punctuation:/^=/}}}}}]);
-//# sourceMappingURL=110.c7c72142.chunk.js.map
