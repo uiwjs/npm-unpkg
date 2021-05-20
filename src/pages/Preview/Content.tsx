@@ -1,6 +1,7 @@
 import React, { useMemo, Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import Loader from '@uiw/react-loader';
+import rehypeRewrite, { RehypeRewriteHandle } from 'rehype-rewrite';
 import MarkdownPreview from '@uiw/react-markdown-preview';
 import { RootState } from '../../models';
 import styles from './Content.module.less';
@@ -21,8 +22,57 @@ export default function DirectoryTrees() {
       case 'markdown': ext = 'md'; break;
       default: break;
     }
+    if (!content) return <Fragment />
     if (extname === 'md') {
       return <MarkdownPreview style={{ padding: 25 }} source={content || ''} />
+    }
+    if (extname === 'json') {
+      const npmPkgName: string[] = []
+      try {
+        const pkg = JSON.parse(content || '{}')
+        if (pkg.name && pkg.version) {
+          if (pkg.devDependencies && Object.keys(pkg.devDependencies).length > 0) {
+            Object.keys(pkg.devDependencies).forEach(key => npmPkgName.push(key))
+          }
+          if (pkg.dependencies && Object.keys(pkg.dependencies).length > 0) {
+            Object.keys(pkg.dependencies).forEach(key => npmPkgName.push(key))
+          }
+        }
+      } catch (error) { }
+      return (
+        <MarkdownPreview
+          rehypePlugins={[[rehypeRewrite, ((node, index, parent) => {
+            if (
+              node.type as any === 'text'
+              && /"([\s\S]*?)(\s.+)?"/.test(node.value as string)
+              && npmPkgName.includes((node.value as string).replace(/"/g, ''))
+            ) {
+              parent.children = [{
+                type: 'element' as any,
+                tagName: 'span',
+                properties: {},
+                children: [
+                  {
+                    type: 'element' as any,
+                    tagName: 'a',
+                    properties: {
+                      href: `#/pkg/${(node.value as string).replace(/"/g, '')}`,
+                      style: {
+                        color: '#0080ff',
+                        'text-decoration': 'underline'
+                      }
+                    },
+                    children: [
+                      {type: 'text', value: node.value}
+                    ]
+                  }
+                ]
+              }]
+            }
+          }) as RehypeRewriteHandle]]}
+          className={styles.code} source={`\`\`\`${ext}\n${content}\n\`\`\``}
+        />
+      )
     }
     if (extname) {
       return <MarkdownPreview className={styles.code} source={`\`\`\`${ext}\n${content}\n\`\`\``} />
