@@ -25,17 +25,17 @@
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-dynamic-loadable": "2.0.5",
-    "react-redux": "7.2.3",
+    "react-redux": "7.2.4",
     "react-router-dom": "5.2.0",
-    "uiw": "4.7.13"
+    "uiw": "4.7.15"
   },
   "devDependencies": {
-    "@kkt/less-modules": "6.8.2",
-    "@types/react": "17.0.3",
-    "@types/react-dom": "17.0.3",
+    "@kkt/less-modules": "6.9.0",
+    "@types/react": "17.0.6",
+    "@types/react-dom": "17.0.5",
     "@types/react-redux": "7.1.16",
     "@types/react-router-dom": "5.1.7",
-    "kkt": "6.8.2"
+    "kkt": "6.9.0"
   },
   "eslintConfig": {
     "extends": [
