@@ -31,19 +31,9 @@ export default function DirectoryTrees() {
   }, [extname, content]);
   return (
     <Fragment>
-      {loading && (
-        <Loader
-          loading={loading}
-          style={{
-            width: '100%',
-            height: '100%',
-            zIndex: 999,
-            position: 'absolute',
-            backgroundColor: 'rgba(255, 255, 255, 0.76)'
-          }}
-        />
-      )}
-      {contentView}
+      <Loader loading={loading} className={styles.loader}>
+        {contentView}
+      </Loader>
     </Fragment>
   );
 }
