@@ -2040,6 +2040,13 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
+"@babel/runtime@^7.14.5":
+  version "7.14.5"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.14.5.tgz#665450911c6031af38f81db530f387ec04cd9a98"
+  integrity sha512-121rumjddw9c3NCQ55KGkyE1h/nzWhU/owjhw0l4mQrkzz4x9SGS1X8gFLraHwX7td3Yo4QTL+qj0NcIzN87BA==
+  dependencies:
+    regenerator-runtime "^0.13.4"
+
 "@babel/template@^7.10.4", "@babel/template@^7.12.7", "@babel/template@^7.3.3":
   version "7.12.7"
   resolved "https://registry.yarnpkg.com/@babel/template/-/template-7.12.7.tgz#c817233696018e39fbb6c491d2fb684e05ed43bc"
@@ -11440,6 +11447,13 @@ react-dynamic-loadable@2.0.5:
   integrity sha512-/hN0pgRZsaE1gVFjIJqigbUxi3BIrpGnRBtzxgUEgd9YWKlskOhMFkAoYhRZRWTLqzmLsr/zyd5ByYZ+LOL7pQ==
   dependencies:
     "@babel/runtime" "^7.12.5"
+
+react-dynamic-loadable@3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/react-dynamic-loadable/-/react-dynamic-loadable-3.0.0.tgz#c018028402ec418310e3333da26236b0f5d522d0"
+  integrity sha512-pINbTLrwgGC+lyanPGCfu1rSbzbIviu/FqY/tdDi6muJowEDtkSOaXTZ6CiqZhz6YLiM8XfVsT3sC36WLvw2KQ==
+  dependencies:
+    "@babel/runtime" "^7.14.5"
 
 react-error-overlay@^6.0.9:
   version "6.0.9"
