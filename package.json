@@ -25,7 +25,7 @@
     "rehype-rewrite": "1.0.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "react-dynamic-loadable": "2.0.5",
+    "react-dynamic-loadable": "3.0.0",
     "react-redux": "7.2.4",
     "react-router-dom": "5.2.0",
     "uiw": "4.7.15"
