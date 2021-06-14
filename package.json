@@ -14,7 +14,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@babel/runtime": "7.13.10",
+    "@babel/runtime": "7.14.6",
     "@rematch/core": "2.0.1",
     "@rematch/loading": "2.0.1",
     "@uiw-admin/router-control": "4.1.4",
