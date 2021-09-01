@@ -47,8 +47,9 @@ export default function DirectoryTrees() {
           </Menu.SubMenu>
         );
       } else if (item.type === 'file') {
+        const filename = item.path.replace(/(.+?)\//g, '');
         menuItems.push(
-          <MeunItemView key={idx} path={`${pkgname}/file${item.path}`} filepath={item.path} size={item.size} />
+          <MeunItemView key={idx} path={`${pkgname}/file${item.path}`} filepath={filename} size={item.size} />
         );
       }
     });
