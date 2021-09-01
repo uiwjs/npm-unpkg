@@ -14,29 +14,29 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@babel/runtime": "7.13.10",
-    "@rematch/core": "2.0.1",
-    "@rematch/loading": "2.0.1",
+    "@babel/runtime": "7.15.3",
+    "@rematch/core": "2.1.0",
+    "@rematch/loading": "2.1.0",
     "@uiw-admin/router-control": "4.1.4",
-    "@uiw/react-github-corners": "1.2.0",
-    "@uiw/react-markdown-preview": "3.0.6",
-    "@uiw/reset.css": "1.0.4",
+    "@uiw/react-github-corners": "1.5.1",
+    "@uiw/react-markdown-preview": "3.3.0",
+    "@uiw/reset.css": "1.0.5",
     "axios": "0.21.1",
     "rehype-rewrite": "1.0.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "react-dynamic-loadable": "2.0.5",
+    "react-dynamic-loadable": "3.0.0",
     "react-redux": "7.2.4",
-    "react-router-dom": "5.2.0",
+    "react-router-dom": "5.2.1",
     "uiw": "4.7.15"
   },
   "devDependencies": {
-    "@kkt/less-modules": "6.9.0",
-    "@types/react": "17.0.6",
-    "@types/react-dom": "17.0.5",
-    "@types/react-redux": "7.1.16",
-    "@types/react-router-dom": "5.1.7",
-    "kkt": "6.9.0"
+    "@kkt/less-modules": "6.11.0",
+    "@types/react": "17.0.19",
+    "@types/react-dom": "17.0.9",
+    "@types/react-redux": "7.1.18",
+    "@types/react-router-dom": "5.1.8",
+    "kkt": "6.11.0"
   },
   "eslintConfig": {
     "extends": [
