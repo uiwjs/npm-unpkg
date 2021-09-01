@@ -1,7 +1,8 @@
-import React, { useMemo, Fragment } from 'react';
+import { useMemo, Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import Loader from '@uiw/react-loader';
-import rehypeRewrite, { RehypeRewriteHandle } from 'rehype-rewrite';
+import rehypeRewrite from 'rehype-rewrite';
+import { Parent, NodeData } from 'unist';
 import MarkdownPreview from '@uiw/react-markdown-preview';
 import { RootState } from '../../models';
 import styles from './Content.module.less';
@@ -41,7 +42,7 @@ export default function DirectoryTrees() {
       } catch (error) { }
       return (
         <MarkdownPreview
-          rehypePlugins={[[rehypeRewrite, ((node, index, parent) => {
+          rehypePlugins={[[rehypeRewrite, ((node: NodeData<Parent>, index: number, parent: NodeData<Parent>) => {
             if (
               node.type as any === 'text'
               && /"([\s\S]*?)(\s.+)?"/.test(node.value as string)
@@ -69,7 +70,7 @@ export default function DirectoryTrees() {
                 ]
               }]
             }
-          }) as RehypeRewriteHandle]]}
+          })]]}
           className={styles.code} source={`\`\`\`${ext}\n${content}\n\`\`\``}
         />
       )
