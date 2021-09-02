@@ -14,6 +14,8 @@ import Search from '../../components/Search';
 import { Params } from '../../models/global';
 import { RootState, Dispatch } from '../../models';
 import { PackageJSON } from '../../models/global';
+import { ReactComponent as NPM } from './npm.svg';
+import { ReactComponent as Github } from './github.svg';
 import styles from './index.module.less';
 
 const { Header, Content } = Layout;
@@ -28,7 +30,6 @@ export default function Preview(props = {} as DefaultProps) {
   }));
 
   const dispatch = useDispatch<Dispatch>();
-
   const params = useParams<Params>();
   const urlPkgName = `${params.org ? `${params.org}/` : ''}${params.name}`;
   useEffect(() => {
@@ -68,17 +69,25 @@ export default function Preview(props = {} as DefaultProps) {
         {Info.name && (
           <Fragment>
             <Divider type="vertical" />
-            <a href={`https://www.npmjs.com/package/${Info.name}/v/${Info.version}`} target="__blank">npm</a>
+            <a href={`https://www.npmjs.com/package/${Info.name}/v/${Info.version}`} target="__blank">
+              <NPM />
+            </a>
+            {Info.repository && (
+              <Fragment>
+                <Divider type="vertical" />
+                <a
+                  href={(typeof Info.repository === 'string' ? Info.repository : (Info.repository.url || '')).replace(/^git\+?/, '')}
+                  className={styles.github}
+                  target="__blank"
+                >
+                  <Github xlinkTitle="repository" />
+                </a>
+              </Fragment>
+            )}
             {Info.homepage && (
               <Fragment>
                 <Divider type="vertical" />
                 <a href={Info.homepage} target="__blank">homepage</a>
-              </Fragment>
-            )}
-            {Info.repository && (
-              <Fragment>
-                <Divider type="vertical" />
-                <a href={typeof Info.repository === 'string' ? Info.repository : (Info.repository.url || '')} target="__blank">repository</a>
               </Fragment>
             )}
             {Info.license && (

@@ -7,8 +7,17 @@
 .header {
   background-color: #343a40;
   padding: 0 16px;
+  display: flex;
+  align-items: center;
   > a {
+    display: flex;
     color: #989898;
+    &:hover {
+      color: #cb3837;
+      &.github {
+        color: #a9a9ff;
+      }
+    }
   }
   > span {
     color: #989898;
