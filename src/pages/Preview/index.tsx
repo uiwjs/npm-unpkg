@@ -16,6 +16,7 @@ import { RootState, Dispatch } from '../../models';
 import { PackageJSON } from '../../models/global';
 import { ReactComponent as NPM } from './npm.svg';
 import { ReactComponent as Github } from './github.svg';
+import { ReactComponent as Home } from './home.svg';
 import styles from './index.module.less';
 
 const { Header, Content } = Layout;
@@ -74,7 +75,6 @@ export default function Preview(props = {} as DefaultProps) {
             </a>
             {Info.repository && (
               <Fragment>
-                <Divider type="vertical" />
                 <a
                   href={(typeof Info.repository === 'string' ? Info.repository : (Info.repository.url || '')).replace(/^git\+?/, '')}
                   className={styles.github}
@@ -86,8 +86,9 @@ export default function Preview(props = {} as DefaultProps) {
             )}
             {Info.homepage && (
               <Fragment>
-                <Divider type="vertical" />
-                <a href={Info.homepage} target="__blank">homepage</a>
+                <a href={Info.homepage} target="__blank">
+                  <Home />
+                </a>
               </Fragment>
             )}
             {Info.license && (
