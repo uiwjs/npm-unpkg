@@ -18,7 +18,7 @@
     "@rematch/core": "2.1.0",
     "@rematch/loading": "2.1.0",
     "@uiw-admin/router-control": "4.1.4",
-    "@uiw/react-github-corners": "1.5.1",
+    "@uiw/react-github-corners": "1.5.3",
     "@uiw/react-markdown-preview": "3.3.2",
     "@uiw/reset.css": "1.0.5",
     "axios": "0.21.2",
