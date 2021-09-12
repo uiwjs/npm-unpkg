@@ -28,7 +28,7 @@
     "react-dynamic-loadable": "3.0.0",
     "react-redux": "7.2.4",
     "react-router-dom": "5.3.0",
-    "uiw": "4.9.6"
+    "uiw": "4.9.7"
   },
   "devDependencies": {
     "@kkt/less-modules": "6.11.0",
