@@ -16,11 +16,11 @@
     "main.js.map": "/static/js/main.df5621aa.chunk.js.map",
     "react-vendor.js": "/static/js/react-vendor.890fbf53.chunk.js",
     "react-vendor.js.map": "/static/js/react-vendor.890fbf53.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.2b801a8b.js",
-    "runtime-main.js.map": "/static/js/runtime-main.2b801a8b.js.map",
+    "runtime-main.js": "/static/js/runtime-main.291ff94c.js",
+    "runtime-main.js.map": "/static/js/runtime-main.291ff94c.js.map",
     "static/css/7.b37b9b81.chunk.css": "/static/css/7.b37b9b81.chunk.css",
-    "static/js/7.79055e6e.chunk.js": "/static/js/7.79055e6e.chunk.js",
-    "static/js/7.79055e6e.chunk.js.map": "/static/js/7.79055e6e.chunk.js.map",
+    "static/js/7.29a79480.chunk.js": "/static/js/7.29a79480.chunk.js",
+    "static/js/7.29a79480.chunk.js.map": "/static/js/7.29a79480.chunk.js.map",
     "static/css/8.87feee74.chunk.css": "/static/css/8.87feee74.chunk.css",
     "static/js/8.0531c4ac.chunk.js": "/static/js/8.0531c4ac.chunk.js",
     "static/js/8.0531c4ac.chunk.js.map": "/static/js/8.0531c4ac.chunk.js.map",
@@ -40,7 +40,7 @@
     "static/media/npm.597c2801.svg": "/static/media/npm.597c2801.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.2b801a8b.js",
+    "static/js/runtime-main.291ff94c.js",
     "static/js/react-vendor.890fbf53.chunk.js",
     "static/css/main.b424ceee.chunk.css",
     "static/js/main.df5621aa.chunk.js"
