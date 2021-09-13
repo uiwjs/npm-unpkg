@@ -54,10 +54,10 @@ export default function Preview(props = {} as DefaultProps) {
   ), [Info.name, Info.version, params.org]);
 
   const unPkgView = useMemo(() => (
-    <a href={`https://unpkg.com/browse/${Info.name}/`} target="__blank">
+    <a href={`https://unpkg.com/browse/${params.org ? `${params.org}/${params.name}` : params.name}/`} target="__blank">
       unpkg
     </a>
-  ), [Info.name]);
+  ), [params.name, params.org]);
 
   return (
     <Layout>
