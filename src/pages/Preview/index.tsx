@@ -46,11 +46,19 @@ export default function Preview(props = {} as DefaultProps) {
   useEffect(() => {
     dispatch.global.getFileContent(params.filename);
   }, [params.filename]);
+
   const nameView = useMemo(() => (
     <Button size="small" type="link" onClick={() => dispatch.global.update({ showSearch: true })} style={{ fontSize: 21 }}>
       {Info && Info.name ? `${Info.name}@${Info.version}` : urlPkgName}
     </Button>
   ), [Info.name, Info.version, params.org]);
+
+  const unPkgView = useMemo(() => (
+    <a href={`https://unpkg.com/browse/${Info.name}/`} target="__blank">
+      unpkg
+    </a>
+  ), [Info.name]);
+
   return (
     <Layout>
       <Header className={styles.header}>
@@ -67,6 +75,10 @@ export default function Preview(props = {} as DefaultProps) {
           <Search {...props} />
         </Modal>
         {nameView}
+        <Fragment>
+          <Divider type="vertical" />
+          {unPkgView}
+        </Fragment>
         {Info.name && (
           <Fragment>
             <Divider type="vertical" />
