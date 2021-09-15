@@ -1,12 +1,20 @@
 import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import Menu from '@uiw/react-menu';
+import Menu, { MenuItemProps } from '@uiw/react-menu';
 import Tag from '@uiw/react-tag';
 import Loader from '@uiw/react-loader';
 import { NavLink } from 'react-router-dom';
 import { RootState } from '../../models';
 import { Files } from '../../models/global';
 import styles from './DirectoryTrees.module.less';
+import { ReactComponent as Markdown } from './icons/markdown.svg';
+import { ReactComponent as TypeScript } from './icons/typescript.svg';
+import { ReactComponent as CSS } from './icons/css3.svg';
+import { ReactComponent as JavaScript } from './icons/javascript.svg';
+import { ReactComponent as Json } from './icons/json.svg';
+import { ReactComponent as JavaScriptMap } from './icons/javascript.map.svg';
+import { ReactComponent as ReactSVG } from './icons/react.svg';
+import { ReactComponent as License } from './icons/license.svg';
 
 const prettyBytes = (num: number, precision = 3, addSpace = true) => {
   const UNITS = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
@@ -17,6 +25,29 @@ const prettyBytes = (num: number, precision = 3, addSpace = true) => {
 };
 
 function MeunItemView(props: { path?: string, filepath?: string; size?: number } = {}) {
+  const menuProps: MenuItemProps<any> = {};
+  const iconName = (props.filepath || '').toLocaleLowerCase();
+  if (/.md$/.test(iconName)) {
+    menuProps.icon = <Markdown />;
+  } else if (/.ts$/.test(iconName)) {
+    menuProps.icon = <TypeScript />;
+  } else if (/license$/.test(iconName)) {
+    menuProps.icon = <License />;
+  } else if (/.(css|styl|less)$/.test(iconName)) {
+    menuProps.icon = <CSS />;
+  } else if (/.(json)$/.test(iconName)) {
+    menuProps.icon = <Json />;
+  } else if (/.(js\.map)$/.test(iconName)) {
+    menuProps.icon = <JavaScriptMap />;
+  } else if (/.(js|mjs)$/.test(iconName)) {
+    menuProps.icon = <JavaScript />;
+  } else if (/.(jsx)$/.test(iconName)) {
+    menuProps.icon = <ReactSVG />;
+  } else {
+    menuProps.icon = 'file-text';
+  }
+
+  console.log('props.filepath::', props.filepath)
   return useMemo(() => (
     <Menu.Item
       tagName={NavLink}
@@ -25,9 +56,10 @@ function MeunItemView(props: { path?: string, filepath?: string; size?: number }
       addonAfter={
         <Tag color="#e0e0e0" title={(props.size && prettyBytes(props.size)) || ''} className={styles.tags} />
       }
-      icon="file-text"
+      {...menuProps}
       text={props.filepath!.replace(/^\//, '')}
     />
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   ), [props.path, props.size, props.filepath]);
 }
 
@@ -42,7 +74,7 @@ export default function DirectoryTrees() {
     data.forEach((item, idx) => {
       if (item.type === 'directory') {
         menuItems.push(
-          <Menu.SubMenu key={idx} icon="folder" text={item.path.replace(/^\//, '')} >
+          <Menu.SubMenu key={idx} icon="folder" style={{ color: '#1d64ce' }} text={item.path.replace(/^\//, '').replace(/(.+?).\//g, '')} >
             {renderMenuItem(item.files)}
           </Menu.SubMenu>
         );
