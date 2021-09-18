@@ -1,11 +1,32 @@
 import { useMemo, Fragment } from 'react';
 import { useSelector } from 'react-redux';
+import { useParams } from "react-router-dom";
 import Loader from '@uiw/react-loader';
-import rehypeRewrite from 'rehype-rewrite';
-import { Parent, NodeData } from 'unist';
 import MarkdownPreview from '@uiw/react-markdown-preview';
+import CodeMirror, { Extension } from '@uiw/react-codemirror';
+import { javascript } from '@codemirror/lang-javascript';
+import { html } from '@codemirror/lang-html';
+import { xml } from '@codemirror/lang-xml';
+import { css } from '@codemirror/lang-css';
+import { json } from '@codemirror/lang-json';
 import { RootState } from '../../models';
 import styles from './Content.module.less';
+
+const langs: Record<string, any> = {
+  javascript,
+  js: () => javascript(),
+  jsm: () => javascript(),
+  jsx: () => javascript({ jsx: true }),
+  json,
+  css,
+  xml,
+  html,
+  htm: () => html(),
+  map: () => json(),
+  typescript: () => javascript({ typescript: true }),
+  ts: () => javascript({ typescript: true }),
+  tsx: () => javascript({ jsx: true, typescript: true }),
+}
 
 export default function DirectoryTrees() {
   const { loading, content, extname } = useSelector(({ global, loading }: RootState) => ({
@@ -14,6 +35,8 @@ export default function DirectoryTrees() {
     extname: global.extname,
     global,
   }));
+  const { name, filename } = useParams<{ name: string; filename: string; }>();
+  const filePath = `https://unpkg.com/browse/${name}/${filename || ''}`;
   const contentView = useMemo(() => {
     let ext = extname;
     switch (extname) {
@@ -24,61 +47,35 @@ export default function DirectoryTrees() {
       default: break;
     }
     if (!content) return <Fragment />
-    if (extname === 'md') {
-      return <MarkdownPreview style={{ padding: 25 }} source={content || ''} />
-    }
-    if (extname === 'json') {
-      const npmPkgName: string[] = []
-      try {
-        const pkg = JSON.parse(content || '{}')
-        if (pkg.name && pkg.version) {
-          if (pkg.devDependencies && Object.keys(pkg.devDependencies).length > 0) {
-            Object.keys(pkg.devDependencies).forEach(key => npmPkgName.push(key))
-          }
-          if (pkg.dependencies && Object.keys(pkg.dependencies).length > 0) {
-            Object.keys(pkg.dependencies).forEach(key => npmPkgName.push(key))
-          }
-        }
-      } catch (error) { }
+    if (extname && (/(md|markdown)$/.test(extname))) {
       return (
-        <MarkdownPreview
-          rehypePlugins={[[rehypeRewrite, ((node: NodeData<Parent>, index: number, parent: NodeData<Parent>) => {
-            if (
-              node.type as any === 'text'
-              && /"([\s\S]*?)(\s.+)?"/.test(node.value as string)
-              && npmPkgName.includes((node.value as string).replace(/"/g, ''))
-            ) {
-              parent.children = [{
-                type: 'element' as any,
-                tagName: 'span',
-                properties: {},
-                children: [
-                  {
-                    type: 'element' as any,
-                    tagName: 'a',
-                    properties: {
-                      href: `#/pkg/${(node.value as string).replace(/"/g, '')}`,
-                      style: {
-                        color: '#0080ff',
-                        'text-decoration': 'underline'
-                      }
-                    },
-                    children: [
-                      {type: 'text', value: node.value}
-                    ]
-                  }
-                ]
-              }]
-            }
-          })]]}
-          className={styles.code} source={`\`\`\`${ext}\n${content}\n\`\`\``}
+        <Fragment>
+          <div>
+            <a className={styles.viewRaw} href={filePath} target="__blank">View Raw</a>
+            <MarkdownPreview style={{ padding: 25 }} source={content || ''} />
+          </div>
+        </Fragment>
+      );
+    }
+    if (extname && /(js|jsx|ts|css|tsx|json|map|html|htm)$/.test(extname)) {
+      const extensions: Extension[] = [];
+      if (langs[extname]) {
+        extensions.push(langs[extname]());
+      }
+      return (
+        <CodeMirror
+          extensions={[...extensions]}
+          editable={false}
+          height="100%"
+          value={content}
         />
-      )
+      );
     }
     if (extname) {
-      return <MarkdownPreview className={styles.code} source={`\`\`\`${ext}\n${content}\n\`\`\``} />
+      return <MarkdownPreview className={styles.code} source={`\`\`\`${ext}\n${content}\n\`\`\``} />;
     }
     return <pre style={{ padding: 25 }}>{content}</pre>;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [extname, content]);
   return (
     <Fragment>
@@ -88,5 +85,3 @@ export default function DirectoryTrees() {
     </Fragment>
   );
 }
-
-// export default connect(mapState, mapDispatch)(DirectoryTrees);

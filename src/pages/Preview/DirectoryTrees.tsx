@@ -47,7 +47,6 @@ function MeunItemView(props: { path?: string, filepath?: string; size?: number }
     menuProps.icon = 'file-text';
   }
 
-  console.log('props.filepath::', props.filepath)
   return useMemo(() => (
     <Menu.Item
       tagName={NavLink}
