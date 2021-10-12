@@ -4,6 +4,10 @@ import { useParams } from "react-router-dom";
 import Loader from '@uiw/react-loader';
 import MarkdownPreview from '@uiw/react-markdown-preview';
 import CodeMirror, { Extension } from '@uiw/react-codemirror';
+import { StreamLanguage } from '@codemirror/stream-parser';
+import { stylus } from '@codemirror/legacy-modes/mode/stylus';
+import { yaml } from '@codemirror/legacy-modes/mode/yaml';
+import { toml } from '@codemirror/legacy-modes/mode/toml';
 import { javascript } from '@codemirror/lang-javascript';
 import { html } from '@codemirror/lang-html';
 import { xml } from '@codemirror/lang-xml';
@@ -15,11 +19,17 @@ import styles from './Content.module.less';
 const langs: Record<string, any> = {
   javascript,
   js: () => javascript(),
-  jsm: () => javascript(),
+  mjs: () => javascript({ jsx: true }),
+  cjs: () => javascript(),
   jsx: () => javascript({ jsx: true }),
   json,
   css,
+  less: () => css(),
+  styl: () => StreamLanguage.define(stylus),
+  '.editorconfig': () => StreamLanguage.define(toml),
   xml,
+  lock: () => StreamLanguage.define(yaml),
+  yml: () => StreamLanguage.define(yaml),
   html,
   htm: () => html(),
   map: () => json(),
@@ -57,7 +67,7 @@ export default function DirectoryTrees() {
         </Fragment>
       );
     }
-    if (extname && /(js|jsx|ts|css|tsx|json|map|html|htm)$/.test(extname)) {
+    if (extname && langs[extname]) {
       const extensions: Extension[] = [];
       if (langs[extname]) {
         extensions.push(langs[extname]());
