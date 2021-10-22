@@ -24,7 +24,7 @@
     "@rematch/core": "2.1.0",
     "@rematch/loading": "2.1.1",
     "@uiw-admin/router-control": "4.1.4",
-    "@uiw/react-codemirror": "4.0.8",
+    "@uiw/react-codemirror": "4.1.0",
     "@uiw/react-github-corners": "1.5.3",
     "@uiw/react-markdown-preview": "3.4.1",
     "@uiw/reset.css": "1.0.5",
