@@ -36,8 +36,8 @@ export default function Preview(props = {} as DefaultProps) {
   useEffect(() => {
     if (!pkgname || urlPkgName !== pkgname) {
       dispatch.global.setPkgname(params);
-      dispatch.global.getDirectoryTrees();
-      dispatch.global.getPackageJSON();
+      dispatch.global.getDirectoryTrees({});
+      dispatch.global.getPackageJSON({});
     }
   }, [pkgname, urlPkgName, pkgname]);
   useEffect(() => {
