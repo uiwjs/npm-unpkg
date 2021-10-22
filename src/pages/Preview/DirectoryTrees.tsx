@@ -29,7 +29,7 @@ function MeunItemView(props: { path?: string, filepath?: string; size?: number }
   const iconName = (props.filepath || '').toLocaleLowerCase();
   if (/.md$/.test(iconName)) {
     menuProps.icon = <Markdown />;
-  } else if (/.ts$/.test(iconName)) {
+  } else if (/.(ts|tsx)$/.test(iconName)) {
     menuProps.icon = <TypeScript />;
   } else if (/license$/.test(iconName)) {
     menuProps.icon = <License />;

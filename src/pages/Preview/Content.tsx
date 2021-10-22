@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { useParams } from "react-router-dom";
 import Loader from '@uiw/react-loader';
 import MarkdownPreview from '@uiw/react-markdown-preview';
+import rehypeVideo from 'rehype-video';
 import CodeMirror, { Extension } from '@uiw/react-codemirror';
 import { StreamLanguage } from '@codemirror/stream-parser';
 import { stylus } from '@codemirror/legacy-modes/mode/stylus';
@@ -62,7 +63,7 @@ export default function DirectoryTrees() {
         <Fragment>
           <div>
             <a className={styles.viewRaw} href={filePath} target="__blank">View Raw</a>
-            <MarkdownPreview style={{ padding: 25 }} source={content || ''} />
+            <MarkdownPreview rehypePlugins={[rehypeVideo]} style={{ padding: 25 }} source={content || ''} />
           </div>
         </Fragment>
       );
