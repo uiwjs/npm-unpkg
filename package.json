@@ -28,7 +28,7 @@
     "@uiw/react-github-corners": "1.5.3",
     "@uiw/react-markdown-preview": "3.4.1",
     "@uiw/reset.css": "1.0.5",
-    "axios": "0.21.4",
+    "axios": "0.24.0",
     "rehype-rewrite": "3.0.4",
     "rehype-video": "1.1.1",
     "react": "17.0.2",
