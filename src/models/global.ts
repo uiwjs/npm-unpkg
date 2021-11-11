@@ -58,6 +58,7 @@ export type Params = {
   org?: string;
   name?: string;
   filename?: string;
+  '*'?: string;
 }
 
 export const global = createModel<RootModel>()({

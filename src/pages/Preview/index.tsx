@@ -1,27 +1,24 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, Fragment, useMemo } from 'react';
-import { useParams } from 'react-router-dom';
+import { useEffect, Fragment, useMemo } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import Divider from '@uiw/react-divider';
 import Layout from '@uiw/react-layout';
 import Button from '@uiw/react-button';
 import Split from '@uiw/react-split';
 import Modal from '@uiw/react-modal';
-import { useSelector, useDispatch } from 'react-redux';
-import { DefaultProps } from '@uiw-admin/router-control';
-import DirectoryTrees from './DirectoryTrees';
-import ContentView from './Content';
 import Search from '../../components/Search';
-import { Params } from '../../models/global';
-import { RootState, Dispatch } from '../../models';
 import { PackageJSON } from '../../models/global';
+import { RootState, Dispatch } from '../../models';
 import { ReactComponent as NPM } from './npm.svg';
 import { ReactComponent as Github } from './github.svg';
 import { ReactComponent as Home } from './home.svg';
+import DirectoryTrees from './DirectoryTrees';
+import ContentView from './Content';
+import { usePath } from '../../hook/usePath';
 import styles from './index.module.less';
 
 const { Header, Content } = Layout;
 
-export default function Preview(props = {} as DefaultProps) {
+export default function Preview() {
   const { showSearch, notFindPkg, package: Info, pkgname } = useSelector(({ global, loading }: RootState) => ({
     loading: loading.effects.global.getDirectoryTrees,
     pkgname: global.pkgname,
@@ -29,36 +26,38 @@ export default function Preview(props = {} as DefaultProps) {
     package: (global.package || {}) as PackageJSON,
     showSearch: global.showSearch,
   }));
-
   const dispatch = useDispatch<Dispatch>();
-  const params = useParams<Params>();
-  const urlPkgName = `${params.org ? `${params.org}/` : ''}${params.name}`;
+  const path = usePath();
+
   useEffect(() => {
-    if (!pkgname || urlPkgName !== pkgname) {
-      dispatch.global.setPkgname(params);
+    if (!pkgname || path.pkgName !== pkgname) {
+      dispatch.global.setPkgname(path);
       dispatch.global.getDirectoryTrees({});
       dispatch.global.getPackageJSON({});
     }
-  }, [pkgname, urlPkgName, pkgname]);
+  }, [pkgname, path.pkgName, dispatch.global, path]);
+
   useEffect(() => {
-    document.title = `${params.org ? `${params.org}/` : ''}${params.name} - NPM UNPKG`;
-  }, [params.org, params.name]);
+    document.title = `${path.pkgName} - NPM UNPKG`;
+  }, [path.pkgName]);
+
   useEffect(() => {
-    dispatch.global.getFileContent(params.filename);
-  }, [params.filename]);
+    dispatch.global.getFileContent(path.filePath);
+  }, [dispatch.global, path.filePath]);
 
   const nameView = useMemo(() => (
     <Button size="small" type="link" onClick={() => dispatch.global.update({ showSearch: true })} style={{ fontSize: 21 }}>
-      {Info && Info.name ? `${Info.name}@${Info.version}` : urlPkgName}
+      {Info && Info.name ? `${Info.name}@${Info.version}` : path.pkgName}
     </Button>
-  ), [Info.name, Info.version, params.org]);
+  ), [Info, dispatch.global, path.pkgName]);
+
+  console.log('path:', path)
 
   const unPkgView = useMemo(() => (
-    <a href={`https://unpkg.com/browse/${params.org ? `${params.org}/${params.name}` : params.name}/`} target="__blank">
+    <a href={`https://unpkg.com/browse/${path.pkgName}/`} target="__blank">
       unpkg
     </a>
-  ), [params.name, params.org]);
-
+  ), [path.pkgName]);
   return (
     <Layout>
       <Header className={styles.header}>
@@ -72,7 +71,7 @@ export default function Preview(props = {} as DefaultProps) {
           onCancel={() => console.log('您点击了取消按钮！')}
           onClosed={() => dispatch.global.update({ showSearch: false })}
         >
-          <Search {...props} />
+          <Search />
         </Modal>
         {nameView}
         <Fragment>
@@ -120,7 +119,7 @@ export default function Preview(props = {} as DefaultProps) {
         {notFindPkg && (
           <Fragment>
             <Divider type="vertical" />
-            <span>Cannot find package {urlPkgName}.</span>
+            <span>Cannot find package {path.pkgName}.</span>
           </Fragment>
         )}
       </Header>

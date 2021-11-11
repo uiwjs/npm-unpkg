@@ -2,14 +2,14 @@ import React, {useState, Fragment} from 'react';
 import Input from '@uiw/react-input';
 import Button from '@uiw/react-button';
 import { useDispatch } from 'react-redux';
-import { DefaultProps } from '@uiw-admin/router-control';
+import { Link, useNavigate }from 'react-router-dom';
 import { Dispatch } from '../models';
-import { Link }from 'react-router-dom';
 import styles from './Search.module.less';
 
-export default function Search(props = {} as DefaultProps) {
+export default function Search() {
   const dispatch = useDispatch<Dispatch>();
   const [value, setValue] = useState<string>();
+  const navigate = useNavigate();
   const [links] = useState<{to: string, label: string}[]>([
     {
       to: '/pkg/uiw',
@@ -45,7 +45,7 @@ export default function Search(props = {} as DefaultProps) {
           <Button onClick={() => {
             if (value) {
               dispatch.global.update({ showSearch: false });
-              props.history.push(`/pkg/${value}`);
+              navigate(`/pkg/${value}`);
             }
           }} icon="arrow-right" size="small" basic type="light" />
         }
@@ -59,10 +59,7 @@ export default function Search(props = {} as DefaultProps) {
               key={index}
               to={item.to}
               onClick={(e) => {
-                e.persist();
-                e.preventDefault();
                 dispatch.global.update({ showSearch: false });
-                props.history.push(item.to);
               }}
             >
               {item.label}
@@ -73,7 +70,3 @@ export default function Search(props = {} as DefaultProps) {
     </Fragment>
   );
 }
-
-// const searchView = connect(mapState, mapDispatch)(Search);
-// type SearchView = typeof Search;
-// export default searchView as SearchView;

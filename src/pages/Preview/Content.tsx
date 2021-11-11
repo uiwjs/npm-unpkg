@@ -1,6 +1,5 @@
 import { useMemo, Fragment } from 'react';
 import { useSelector } from 'react-redux';
-import { useParams } from "react-router-dom";
 import Loader from '@uiw/react-loader';
 import MarkdownPreview from '@uiw/react-markdown-preview';
 import rehypeVideo from 'rehype-video';
@@ -14,6 +13,7 @@ import { html } from '@codemirror/lang-html';
 import { xml } from '@codemirror/lang-xml';
 import { css } from '@codemirror/lang-css';
 import { json } from '@codemirror/lang-json';
+import { usePath } from '../../hook/usePath';
 import { RootState } from '../../models';
 import styles from './Content.module.less';
 
@@ -46,8 +46,8 @@ export default function DirectoryTrees() {
     extname: global.extname,
     global,
   }));
-  const { name, filename } = useParams<{ name: string; filename: string; }>();
-  const filePath = `https://unpkg.com/browse/${name}/${filename || ''}`;
+  const path = usePath();
+  const filePath = `https://unpkg.com/browse/${path.pkgName}/${path.filePath || ''}`;
   const contentView = useMemo(() => {
     let ext = extname;
     switch (extname) {
@@ -86,10 +86,13 @@ export default function DirectoryTrees() {
       return <MarkdownPreview className={styles.code} source={`\`\`\`${ext}\n${content}\n\`\`\``} />;
     }
     return <pre style={{ padding: 25 }}>{content}</pre>;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [extname, content]);
+  }, [extname, content, filePath]);
+
   return (
     <Fragment>
+      <div style={{ position: 'absolute', zIndex: 9999, padding: 15 }}>
+        <Loader loading={loading} className={styles.loader} tip="Loading" />
+      </div>
       <Loader loading={loading} className={styles.loader}>
         {contentView}
       </Loader>
