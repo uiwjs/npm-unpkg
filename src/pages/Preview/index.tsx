@@ -51,8 +51,6 @@ export default function Preview() {
     </Button>
   ), [Info, dispatch.global, path.pkgName]);
 
-  console.log('path:', path)
-
   const unPkgView = useMemo(() => (
     <a href={`https://unpkg.com/browse/${path.pkgName}/`} target="__blank">
       unpkg
