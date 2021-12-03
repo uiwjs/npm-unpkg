@@ -23,7 +23,7 @@
     "@codemirror/legacy-modes": "0.19.0",
     "@rematch/core": "2.2.0",
     "@rematch/loading": "2.1.2",
-    "@uiw/react-codemirror": "4.2.3",
+    "@uiw/react-codemirror": "4.2.4",
     "@uiw/react-github-corners": "1.5.3",
     "@uiw/react-markdown-preview": "3.4.2",
     "@uiw/reset.css": "1.0.5",
