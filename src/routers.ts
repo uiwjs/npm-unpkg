@@ -1,31 +1,25 @@
-import React, { lazy } from 'react';
+import { lazy } from 'react';
+import { RouteObject } from 'react-router-dom';
 
-export type Routes = {
-  path: string;
-  exact?: boolean;
-  component: React.ReactNode;
-}[];
-
-
-export const routes: Routes = [
+export const routes: RouteObject[] = [
   {
     path: '/',
-    component: lazy(() => import('./pages/Home')),
+    element: lazy(() => import('./pages/Home')),
   },
   {
     path: "/pkg/:name",
-    component: lazy(() => import('./pages/Preview')),
+    element: lazy(() => import('./pages/Preview')),
   },
   {
     path: "/pkg/:name/file/:filename/*",
-    component: lazy(() => import('./pages/Preview')),
+    element: lazy(() => import('./pages/Preview')),
   },
   {
     path: "/pkg/:org/:name",
-    component: lazy(() => import('./pages/Preview')),
+    element: lazy(() => import('./pages/Preview')),
   },
   {
     path: "/pkg/:org/:name/file/:filename/*",
-    component: lazy(() => import('./pages/Preview')),
+    element: lazy(() => import('./pages/Preview')),
   },
 ];

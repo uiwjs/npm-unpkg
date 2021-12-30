@@ -18,13 +18,8 @@ const Loading = (
 function App() {
   return (
     <HashRouter>
-      <GitHubCorners
-        size={54}
-        target="_parent"
-        href="https://github.com/uiwjs/npm-unpkg"
-      />
       <Routes>
-        {routes.map(({ component: Child, path }, idx) => {
+        {routes.map(({ element: Child, path }, idx) => {
           const Com = Child as any;
           return (
             <Route
@@ -45,6 +40,11 @@ function App() {
 
 ReactDOM.render(
   <Provider store={store}>
+    <GitHubCorners
+      size={54}
+      target="_parent"
+      href="https://github.com/uiwjs/npm-unpkg"
+    />
     <App />
   </Provider>,
   document.getElementById('root'),
