@@ -1,6 +1,6 @@
 build
 npm-debug.log*
-package-lock.json
+# package-lock.json
 # dependencies
 node_modules
 .pnp
