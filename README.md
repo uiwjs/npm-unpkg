@@ -27,3 +27,7 @@ npm run build
 
 The build is minified and the filenames include the hashes.
 Your app is ready to be deployed!
+
+## License
+
+[MIT © Kenny Wong](https://github.com/kktjs/kkt/blob/master/LICENSE)
