@@ -1,8 +1,8 @@
-import { useState, Fragment} from 'react';
+import { useState, Fragment } from 'react';
 import Input from '@uiw/react-input';
 import Button from '@uiw/react-button';
 import { useDispatch } from 'react-redux';
-import { Link, useNavigate }from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Dispatch } from '../models';
 import styles from './Search.module.less';
 
@@ -10,26 +10,26 @@ export default function Search() {
   const dispatch = useDispatch<Dispatch>();
   const [value, setValue] = useState<string>();
   const navigate = useNavigate();
-  const [links] = useState<{to: string, label: string}[]>([
+  const [links] = useState<{ to: string; label: string }[]>([
     {
       to: '/pkg/uiw',
-      label: 'uiw'
+      label: 'uiw',
     },
     {
       to: '/pkg/vue',
-      label: 'vue'
+      label: 'vue',
     },
     {
       to: '/pkg/react',
-      label: 'react'
+      label: 'react',
     },
     {
       to: '/pkg/react@17',
-      label: 'react@17'
+      label: 'react@17',
     },
     {
       to: '/pkg/react@17.0.1',
-      label: 'react@17.0.1'
+      label: 'react@17.0.1',
     },
   ]);
   return (
@@ -42,12 +42,18 @@ export default function Search() {
           setValue(e.target.value);
         }}
         addonAfter={
-          <Button onClick={() => {
-            if (value) {
-              dispatch.global.update({ showSearch: false });
-              navigate(`/pkg/${value}`);
-            }
-          }} icon="arrow-right" size="small" basic type="light" />
+          <Button
+            onClick={() => {
+              if (value) {
+                dispatch.global.update({ showSearch: false });
+                navigate(`/pkg/${value}`);
+              }
+            }}
+            icon="arrow-right"
+            size="small"
+            basic
+            type="light"
+          />
         }
         placeholder="package or package@version"
       />
@@ -64,7 +70,7 @@ export default function Search() {
             >
               {item.label}
             </Link>
-          )
+          );
         })}
       </div>
     </Fragment>

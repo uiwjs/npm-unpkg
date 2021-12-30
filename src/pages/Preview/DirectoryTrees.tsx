@@ -24,7 +24,7 @@ const prettyBytes = (num: number, precision = 3, addSpace = true) => {
   return (num < 0 ? '-' : '') + n + (addSpace ? ' ' : '') + UNITS[exponent];
 };
 
-function MeunItemView(props: { path?: string, filepath?: string; size?: number } = {}) {
+function MeunItemView(props: { path?: string; filepath?: string; size?: number } = {}) {
   const menuProps: MenuItemProps<any> = {};
   const iconName = (props.filepath || '').toLocaleLowerCase();
   if (/.md$/.test(iconName)) {
@@ -47,19 +47,22 @@ function MeunItemView(props: { path?: string, filepath?: string; size?: number }
     menuProps.icon = 'file-text';
   }
 
-  return useMemo(() => (
-    <Menu.Item
-      tagName={NavLink}
-      title={props.filepath}
-      to={`/pkg/${props.path}`}
-      addonAfter={
-        <Tag color="#e0e0e0" title={(props.size && prettyBytes(props.size)) || ''} className={styles.tags} />
-      }
-      {...menuProps}
-      text={props.filepath!.replace(/^\//, '')}
-    />
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  ), [props.path, props.size, props.filepath]);
+  return useMemo(
+    () => (
+      <Menu.Item
+        tagName={NavLink}
+        title={props.filepath}
+        to={`/pkg/${props.path}`}
+        addonAfter={
+          <Tag color="#e0e0e0" title={(props.size && prettyBytes(props.size)) || ''} className={styles.tags} />
+        }
+        {...menuProps}
+        text={props.filepath!.replace(/^\//, '')}
+      />
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    ),
+    [props.path, props.size, props.filepath],
+  );
 }
 
 export default function DirectoryTrees() {
@@ -73,21 +76,26 @@ export default function DirectoryTrees() {
     data.forEach((item, idx) => {
       if (item.type === 'directory') {
         menuItems.push(
-          <Menu.SubMenu key={idx} icon="folder" style={{ color: '#1d64ce' }} text={item.path.replace(/^\//, '').replace(/(.+?).\//g, '')} >
+          <Menu.SubMenu
+            key={idx}
+            icon="folder"
+            style={{ color: '#1d64ce' }}
+            text={item.path.replace(/^\//, '').replace(/(.+?).\//g, '')}
+          >
             {renderMenuItem(item.files)}
-          </Menu.SubMenu>
+          </Menu.SubMenu>,
         );
       } else if (item.type === 'file') {
         const filename = item.path.replace(/(.+?)\//g, '');
         menuItems.push(
-          <MeunItemView key={idx} path={`${pkgname}/file${item.path}`} filepath={filename} size={item.size} />
+          <MeunItemView key={idx} path={`${pkgname}/file${item.path}`} filepath={filename} size={item.size} />,
         );
       }
     });
     return menuItems;
   }
   return (
-    <Loader loading={loading} style={{ width: '100%'}}>
+    <Loader loading={loading} style={{ width: '100%' }}>
       <Menu theme="light" bordered={false}>
         {renderMenuItem(files)}
       </Menu>

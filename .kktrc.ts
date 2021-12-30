@@ -40,4 +40,4 @@ export default (conf: Configuration, env: 'production' | 'development', options:
     conf.output = { ...conf.output, publicPath: './' };
   }
   return conf;
-}
+};

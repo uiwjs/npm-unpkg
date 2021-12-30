@@ -14,8 +14,8 @@ export function usePath() {
   }, [filename, other]);
 
   useEffect(() => {
-    setPkgName(`${org ? `${org}/${name}`: name}`);
+    setPkgName(`${org ? `${org}/${name}` : name}`);
   }, [org, name]);
 
-  return { org, name, filename, other, filePath, pkgName }
+  return { org, name, filename, other, filePath, pkgName };
 }

@@ -7,19 +7,19 @@ export const routes: RouteObject[] = [
     element: lazy(() => import('./pages/Home')),
   },
   {
-    path: "/pkg/:name",
+    path: '/pkg/:name',
     element: lazy(() => import('./pages/Preview')),
   },
   {
-    path: "/pkg/:name/file/:filename/*",
+    path: '/pkg/:name/file/:filename/*',
     element: lazy(() => import('./pages/Preview')),
   },
   {
-    path: "/pkg/:org/:name",
+    path: '/pkg/:org/:name',
     element: lazy(() => import('./pages/Preview')),
   },
   {
-    path: "/pkg/:org/:name/file/:filename/*",
+    path: '/pkg/:org/:name/file/:filename/*',
     element: lazy(() => import('./pages/Preview')),
   },
 ];

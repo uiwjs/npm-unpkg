@@ -40,11 +40,7 @@ function App() {
 
 ReactDOM.render(
   <Provider store={store}>
-    <GitHubCorners
-      size={54}
-      target="_parent"
-      href="https://github.com/uiwjs/npm-unpkg"
-    />
+    <GitHubCorners size={54} target="_parent" href="https://github.com/uiwjs/npm-unpkg" />
     <App />
   </Provider>,
   document.getElementById('root'),

@@ -5,9 +5,7 @@ export function splitUrl(url: string, options: { [x: string]: any }) {
   let urlNew = url;
   const paramsArray: string[] = [];
   // Object.keys(options).forEach(key => paramsArray.push(key + '=' + options[key]));
-  Object.keys(options).forEach((key) =>
-    paramsArray.push(`${key}=${options[key]}`),
-  );
+  Object.keys(options).forEach((key) => paramsArray.push(`${key}=${options[key]}`));
   if (Object.keys(options).length === 0) {
     return url;
   }
@@ -21,7 +19,7 @@ export function splitUrl(url: string, options: { [x: string]: any }) {
 
 export function nameSort(data: Files[] = [], resule: Files[] = []) {
   let dirs: Files[] = [];
-  let files: Files[] = []
+  let files: Files[] = [];
   data.forEach((item) => {
     if (item.type === 'directory') {
       dirs.push(item);

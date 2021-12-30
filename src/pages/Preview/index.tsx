@@ -19,7 +19,12 @@ import styles from './index.module.less';
 const { Header, Content } = Layout;
 
 export default function Preview() {
-  const { showSearch, notFindPkg, package: Info, pkgname } = useSelector(({ global, loading }: RootState) => ({
+  const {
+    showSearch,
+    notFindPkg,
+    package: Info,
+    pkgname,
+  } = useSelector(({ global, loading }: RootState) => ({
     loading: loading.effects.global.getDirectoryTrees,
     pkgname: global.pkgname,
     notFindPkg: global.notFindPkg,
@@ -45,17 +50,28 @@ export default function Preview() {
     dispatch.global.getFileContent(path.filePath);
   }, [dispatch.global, path.filePath]);
 
-  const nameView = useMemo(() => (
-    <Button size="small" type="link" onClick={() => dispatch.global.update({ showSearch: true })} style={{ fontSize: 21 }}>
-      {Info && Info.name ? `${Info.name}@${Info.version}` : path.pkgName}
-    </Button>
-  ), [Info, dispatch.global, path.pkgName]);
+  const nameView = useMemo(
+    () => (
+      <Button
+        size="small"
+        type="link"
+        onClick={() => dispatch.global.update({ showSearch: true })}
+        style={{ fontSize: 21 }}
+      >
+        {Info && Info.name ? `${Info.name}@${Info.version}` : path.pkgName}
+      </Button>
+    ),
+    [Info, dispatch.global, path.pkgName],
+  );
 
-  const unPkgView = useMemo(() => (
-    <a href={`https://unpkg.com/browse/${path.pkgName}/`} target="__blank">
-      unpkg
-    </a>
-  ), [path.pkgName]);
+  const unPkgView = useMemo(
+    () => (
+      <a href={`https://unpkg.com/browse/${path.pkgName}/`} target="__blank">
+        unpkg
+      </a>
+    ),
+    [path.pkgName],
+  );
   return (
     <Layout>
       <Header className={styles.header}>
@@ -85,7 +101,10 @@ export default function Preview() {
             {Info.repository && (
               <Fragment>
                 <a
-                  href={(typeof Info.repository === 'string' ? Info.repository : (Info.repository.url || '')).replace(/^git\+?/, '')}
+                  href={(typeof Info.repository === 'string' ? Info.repository : Info.repository.url || '').replace(
+                    /^git\+?/,
+                    '',
+                  )}
                   className={styles.github}
                   target="__blank"
                 >

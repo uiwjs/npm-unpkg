@@ -1,10 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": [
-      "es6",
-      "dom"
-    ],
+    "lib": ["es6", "dom"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -22,7 +19,5 @@
     "noFallthroughCasesInSwitch": true,
     "noEmit": true
   },
-  "include": [
-    "src/**/*"
-  ]
+  "include": ["src/**/*"]
 }

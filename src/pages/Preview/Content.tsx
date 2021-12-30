@@ -37,7 +37,7 @@ const langs: Record<string, any> = {
   typescript: () => javascript({ typescript: true }),
   ts: () => javascript({ typescript: true }),
   tsx: () => javascript({ jsx: true, typescript: true }),
-}
+};
 
 export default function DirectoryTrees() {
   const { loading, content, extname } = useSelector(({ global, loading }: RootState) => ({
@@ -51,18 +51,29 @@ export default function DirectoryTrees() {
   const contentView = useMemo(() => {
     let ext = extname;
     switch (extname) {
-      case 'tsx': ext = 'typescript'; break;
-      case 'ts': ext = 'typescript'; break;
-      case 'map': ext = 'json'; break;
-      case 'markdown': ext = 'md'; break;
-      default: break;
+      case 'tsx':
+        ext = 'typescript';
+        break;
+      case 'ts':
+        ext = 'typescript';
+        break;
+      case 'map':
+        ext = 'json';
+        break;
+      case 'markdown':
+        ext = 'md';
+        break;
+      default:
+        break;
     }
-    if (!content) return <Fragment />
-    if (extname && (/(md|markdown)$/.test(extname))) {
+    if (!content) return <Fragment />;
+    if (extname && /(md|markdown)$/.test(extname)) {
       return (
         <Fragment>
           <div>
-            <a className={styles.viewRaw} href={filePath} target="__blank">View Raw</a>
+            <a className={styles.viewRaw} href={filePath} target="__blank">
+              View Raw
+            </a>
             <MarkdownPreview rehypePlugins={[rehypeVideo]} style={{ padding: 25 }} source={content || ''} />
           </div>
         </Fragment>
@@ -73,14 +84,7 @@ export default function DirectoryTrees() {
       if (langs[extname]) {
         extensions.push(langs[extname]());
       }
-      return (
-        <CodeMirror
-          extensions={[...extensions]}
-          editable={false}
-          height="100%"
-          value={content}
-        />
-      );
+      return <CodeMirror extensions={[...extensions]} editable={false} height="100%" value={content} />;
     }
     if (extname) {
       return <MarkdownPreview className={styles.code} source={`\`\`\`${ext}\n${content}\n\`\`\``} />;

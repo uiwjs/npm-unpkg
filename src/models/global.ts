@@ -1,7 +1,7 @@
 import { createModel } from '@rematch/core';
 import { RootModel } from './';
 import { getDirectoryTrees, getFileContent } from '../servers/unpkg';
-import {dataFilesSort} from '../utils/utils';
+import { dataFilesSort } from '../utils/utils';
 
 export interface Files {
   path: string;
@@ -14,33 +14,35 @@ export interface Files {
 }
 
 export interface PackageJSON {
-    name: string;
-    version: string;
-    description: string;
-    author: string;
-    homepage?: string;
-    repository?: {
-      type?: string;
-      url?: string;
-    } | string;
-    license: string;
-    main: string;
-    module: string;
-    files: string[];
-    publishConfig?: {
-      [key: string]: any;
-    }
-    keywords: string[];
-    peerDependencies?: {
-      [key: string]: string;
-    }
-    dependencies?: {
-      [key: string]: string;
-    }
-    devDependencies?: {
-      [key: string]: string;
-    }
-    gitHead?: string;
+  name: string;
+  version: string;
+  description: string;
+  author: string;
+  homepage?: string;
+  repository?:
+    | {
+        type?: string;
+        url?: string;
+      }
+    | string;
+  license: string;
+  main: string;
+  module: string;
+  files: string[];
+  publishConfig?: {
+    [key: string]: any;
+  };
+  keywords: string[];
+  peerDependencies?: {
+    [key: string]: string;
+  };
+  dependencies?: {
+    [key: string]: string;
+  };
+  devDependencies?: {
+    [key: string]: string;
+  };
+  gitHead?: string;
 }
 
 export interface GlobalState {
@@ -59,7 +61,7 @@ export type Params = {
   name?: string;
   filename?: string;
   '*'?: string;
-}
+};
 
 export const global = createModel<RootModel>()({
   state: {
@@ -78,8 +80,8 @@ export const global = createModel<RootModel>()({
       ...payload,
     }),
   },
-  effects: (dispatch) =>  {
-		const { global } = dispatch
+  effects: (dispatch) => {
+    const { global } = dispatch;
     return {
       async setPkgname(params: Params) {
         const { name, org } = params || {};
@@ -106,7 +108,7 @@ export const global = createModel<RootModel>()({
       async getPackageJSON(_, state) {
         const data: PackageJSON = await getFileContent(`${state.global.pkgname}/package.json`);
         if (data && typeof data === 'object') {
-          global.update({ package: {...data }, notFindPkg: false });
+          global.update({ package: { ...data }, notFindPkg: false });
         } else {
           global.update({
             package: undefined,
@@ -118,8 +120,8 @@ export const global = createModel<RootModel>()({
         if (!filepath) {
           dispatch.global.update({ content: '', extname: '' });
           return;
-        };
-        const type = filepath.replace(/.+\./,'');
+        }
+        const type = filepath.replace(/.+\./, '');
         const data: PackageJSON = await getFileContent(`${state.global.pkgname}/${filepath}`);
         if (typeof data === 'string' || !data) {
           dispatch.global.update({ content: data, extname: type });
@@ -127,6 +129,6 @@ export const global = createModel<RootModel>()({
           dispatch.global.update({ content: JSON.stringify(data, null, 2), extname: type });
         }
       },
-    }
-  }
+    };
+  },
 });
