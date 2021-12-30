@@ -59,8 +59,8 @@ function MeunItemView(props: { path?: string; filepath?: string; size?: number }
         {...menuProps}
         text={props.filepath!.replace(/^\//, '')}
       />
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    ),
+      ),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [props.path, props.size, props.filepath],
   );
 }
