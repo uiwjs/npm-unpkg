@@ -1,6 +1,6 @@
 {
   "name": "npm-unpkg",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "A web application to view npm package files, Based on unpkg.",
   "private": true,
   "scripts": {
