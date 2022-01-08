@@ -53,7 +53,7 @@
     "husky": "7.0.4",
     "lint-staged": "11.2.6",
     "prettier": "2.5.1",
-    "kkt": "6.11.0"
+    "kkt": "7.0.5"
   },
   "eslintConfig": {
     "extends": [
