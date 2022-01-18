@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import Menu, { MenuItemProps } from '@uiw/react-menu';
 import Tag from '@uiw/react-tag';
 import Loader from '@uiw/react-loader';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { RootState } from '../../models';
 import { Files } from '../../models/global';
 import styles from './DirectoryTrees.module.less';
@@ -66,19 +66,26 @@ function MeunItemView(props: { path?: string; filepath?: string; size?: number }
 }
 
 export default function DirectoryTrees() {
+  const location = useLocation();
   const { loading, files, pkgname } = useSelector(({ global, loading }: RootState) => ({
     loading: loading.effects.global.getDirectoryTrees,
     files: global.files,
     pkgname: global.pkgname,
   }));
 
+  const pathname = location.pathname.replace(new RegExp(`/pkg/${pkgname}/file`), '')
+
   function renderMenuItem(data: Files[] = [], menuItems: any = []) {
     data.forEach((item, idx) => {
       if (item.type === 'directory') {
+        const collapse = new RegExp(`^${item.path}`).test(pathname);
         menuItems.push(
           <Menu.SubMenu
             key={idx}
             icon="folder"
+            overlayProps={{
+              isOpen: collapse
+            }}
             style={{ color: '#1d64ce' }}
             text={item.path.replace(/^\//, '').replace(/(.+?).\//g, '')}
           >

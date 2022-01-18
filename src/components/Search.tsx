@@ -1,12 +1,16 @@
 import { useState, Fragment } from 'react';
 import Input from '@uiw/react-input';
 import Button from '@uiw/react-button';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { Dispatch } from '../models';
+import { Dispatch, RootState } from '../models';
 import styles from './Search.module.less';
 
 export default function Search() {
+  const { package: pkg, pkgname } = useSelector(({ global }: RootState) => ({
+    package: global.package,
+    pkgname: global.pkgname,
+  }));
   const dispatch = useDispatch<Dispatch>();
   const [value, setValue] = useState<string>();
   const navigate = useNavigate();
@@ -32,11 +36,13 @@ export default function Search() {
       label: 'react@17.0.1',
     },
   ]);
+  const name = pkg && pkg.name ? `${pkg.name}@${pkg.version}` : pkgname;
   return (
     <Fragment>
       <Input
         className={styles.input}
         size="large"
+        defaultValue={name}
         preIcon="search"
         onChange={(e) => {
           setValue(e.target.value);
