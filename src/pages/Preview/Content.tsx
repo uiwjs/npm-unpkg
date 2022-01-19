@@ -49,23 +49,23 @@ export default function DirectoryTrees() {
   const path = usePath();
   const filePath = `https://unpkg.com/browse/${path.pkgName}/${path.filePath || ''}`;
   const contentView = useMemo(() => {
-    let ext = extname;
-    switch (extname) {
-      case 'tsx':
-        ext = 'typescript';
-        break;
-      case 'ts':
-        ext = 'typescript';
-        break;
-      case 'map':
-        ext = 'json';
-        break;
-      case 'markdown':
-        ext = 'md';
-        break;
-      default:
-        break;
-    }
+    // let ext = extname;
+    // switch (extname) {
+    //   case 'tsx':
+    //     ext = 'typescript';
+    //     break;
+    //   case 'ts':
+    //     ext = 'typescript';
+    //     break;
+    //   case 'map':
+    //     ext = 'json';
+    //     break;
+    //   case 'markdown':
+    //     ext = 'md';
+    //     break;
+    //   default:
+    //     break;
+    // }
     if (!content) return <Fragment />;
     if (extname && /(md|markdown)$/.test(extname)) {
       return (
@@ -79,15 +79,12 @@ export default function DirectoryTrees() {
         </Fragment>
       );
     }
-    if (extname && langs[extname]) {
+    if (extname || (extname && langs[extname])) {
       const extensions: Extension[] = [];
       if (langs[extname]) {
         extensions.push(langs[extname]());
       }
       return <CodeMirror extensions={[...extensions]} editable={false} height="100%" value={content} />;
-    }
-    if (extname) {
-      return <MarkdownPreview className={styles.code} source={`\`\`\`${ext}\n${content}\n\`\`\``} />;
     }
     return <pre style={{ padding: 25 }}>{content}</pre>;
   }, [extname, content, filePath]);
