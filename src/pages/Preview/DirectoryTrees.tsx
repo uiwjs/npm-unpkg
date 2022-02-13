@@ -52,6 +52,7 @@ function MeunItemView(props: { path?: string; filepath?: string; size?: number }
       <Menu.Item
         tagName={NavLink}
         title={props.filepath}
+        // @ts-ignore
         to={`/pkg/${props.path}`}
         addonAfter={
           <Tag color="#e0e0e0" title={(props.size && prettyBytes(props.size)) || ''} className={styles.tags} />
