@@ -16,7 +16,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@babel/runtime": "7.16.7",
+    "@babel/runtime": "7.17.2",
     "@codemirror/lang-javascript": "0.19.7",
     "@codemirror/lang-json": "0.19.1",
     "@codemirror/lang-css": "0.19.3",
