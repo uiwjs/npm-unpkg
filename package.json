@@ -18,7 +18,7 @@
   "dependencies": {
     "@babel/runtime": "7.16.7",
     "@codemirror/lang-javascript": "0.19.7",
-    "@codemirror/lang-json": "0.19.1",
+    "@codemirror/lang-json": "0.19.2",
     "@codemirror/lang-css": "0.19.3",
     "@codemirror/lang-html": "0.19.4",
     "@codemirror/lang-xml": "0.19.2",
