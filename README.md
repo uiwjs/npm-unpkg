@@ -2,6 +2,7 @@ NPM UNPKG
 ===
 
 [![Build and Deploy npm-unpkg](https://github.com/uiwjs/npm-unpkg/workflows/Build%20and%20Deploy%20npm-unpkg/badge.svg)](https://github.com/uiwjs/npm-unpkg/actions)
+[![Open in Gitpod](https://shields.io/badge/Open%20in-Gitpod-green?logo=Gitpod)](https://gitpod.io/#https://github.com/uiwjs/npm-unpkg)
 
 A web application to view npm package files, Based on [`unpkg`](https://unpkg.com/).
 
@@ -27,6 +28,16 @@ npm run build
 
 The build is minified and the filenames include the hashes.
 Your app is ready to be deployed!
+
+## Contributors
+
+As always, thanks to our amazing contributors!
+
+<a href="https://github.com/uiwjs/npm-unpkg/graphs/contributors">
+  <img src="https://uiwjs.github.io/npm-unpkg/CONTRIBUTORS.svg" />
+</a>
+
+Made with [github-action-contributors](https://github.com/jaywcjlove/github-action-contributors).
 
 ## License
 
