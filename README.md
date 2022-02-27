@@ -1,7 +1,7 @@
 NPM UNPKG
 ===
 
-[![Build and Deploy npm-unpkg](https://github.com/uiwjs/npm-unpkg/workflows/Build%20and%20Deploy%20npm-unpkg/badge.svg)](https://github.com/uiwjs/npm-unpkg/actions)
+[![CI Build & Deploy](https://github.com/uiwjs/npm-unpkg/actions/workflows/ci.yml/badge.svg)](https://github.com/uiwjs/npm-unpkg/actions/workflows/ci.yml)
 [![Open in Gitpod](https://shields.io/badge/Open%20in-Gitpod-green?logo=Gitpod)](https://gitpod.io/#https://github.com/uiwjs/npm-unpkg)
 
 A web application to view npm package files, Based on [`unpkg`](https://unpkg.com/).
