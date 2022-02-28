@@ -56,7 +56,7 @@ export default function Preview() {
         size="small"
         type="link"
         onClick={() => dispatch.global.update({ showSearch: true })}
-        style={{ fontSize: 21 }}
+        style={{ fontSize: 21, whiteSpace: 'nowrap' }}
       >
         {Info && Info.name ? `${Info.name}@${Info.version}` : path.pkgName}
       </Button>
@@ -128,7 +128,9 @@ export default function Preview() {
             {Info.description && (
               <Fragment>
                 <Divider type="vertical" />
-                <span title={Info.description}>{Info.description}</span>
+                <span title={Info.description} style={{ flex: 1, whiteSpace: 'nowrap', overflow: 'hidden' }}>
+                  {Info.description}
+                </span>
               </Fragment>
             )}
           </Fragment>

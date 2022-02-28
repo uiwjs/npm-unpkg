@@ -60,7 +60,7 @@ function MeunItemView(props: { path?: string; filepath?: string; size?: number }
         {...menuProps}
         text={props.filepath!.replace(/^\//, '')}
       />
-      ),
+    ),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [props.path, props.size, props.filepath],
   );
@@ -74,7 +74,7 @@ export default function DirectoryTrees() {
     pkgname: global.pkgname,
   }));
 
-  const pathname = location.pathname.replace(new RegExp(`/pkg/${pkgname}/file`), '')
+  const pathname = location.pathname.replace(new RegExp(`/pkg/${pkgname}/file`), '');
 
   function renderMenuItem(data: Files[] = [], menuItems: any = []) {
     data.forEach((item, idx) => {
@@ -85,7 +85,7 @@ export default function DirectoryTrees() {
             key={idx}
             icon="folder"
             overlayProps={{
-              isOpen: collapse
+              isOpen: collapse,
             }}
             style={{ color: '#1d64ce' }}
             text={item.path.replace(/^\//, '').replace(/(.+?).\//g, '')}
