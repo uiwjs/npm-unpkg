@@ -27,7 +27,7 @@
     "@rematch/loading": "~2.1.2",
     "@uiw/react-codemirror": "~4.5.1",
     "@uiw/react-github-corners": "~1.5.3",
-    "@uiw/react-markdown-preview": "~3.4.7",
+    "@uiw/react-markdown-preview": "~4.0.0",
     "@uiw/reset.css": "~1.0.5",
     "axios": "~0.26.0",
     "rehype-rewrite": "~3.0.4",
