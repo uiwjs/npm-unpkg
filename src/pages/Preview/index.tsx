@@ -5,6 +5,7 @@ import Layout from '@uiw/react-layout';
 import Button from '@uiw/react-button';
 import Split from '@uiw/react-split';
 import Modal from '@uiw/react-modal';
+import '@wcj/dark-mode';
 import Search from '../../components/Search';
 import { PackageJSON } from '../../models/global';
 import { RootState, Dispatch } from '../../models';
@@ -75,6 +76,7 @@ export default function Preview() {
   return (
     <Layout>
       <Header className={styles.header}>
+        <dark-mode style={{ fontSize: 21 }} permanent></dark-mode>
         <Modal
           title="Select package"
           isOpen={showSearch}
@@ -144,7 +146,7 @@ export default function Preview() {
       </Header>
       <Layout className={styles.warpper}>
         <Split className={styles.warpper} style={{ height: 100 }}>
-          <div style={{ minWidth: 210, width: 210, overflow: 'auto', backgroundColor: '#fff' }}>
+          <div style={{ minWidth: 210, width: 210, overflow: 'auto' }}>
             <DirectoryTrees />
           </div>
           <Content style={{ minWidth: 100, flex: 1, overflow: 'auto', position: 'relative' }}>

@@ -1,9 +1,9 @@
-import { useMemo, Fragment } from 'react';
+import { useMemo, useEffect, useState, Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import Loader from '@uiw/react-loader';
 import MarkdownPreview from '@uiw/react-markdown-preview';
 import rehypeVideo from 'rehype-video';
-import CodeMirror from '@uiw/react-codemirror';
+import CodeMirror, { ReactCodeMirrorProps } from '@uiw/react-codemirror';
 import {  Extension } from '@codemirror/state';
 import { StreamLanguage } from '@codemirror/language';
 import { stylus } from '@codemirror/legacy-modes/mode/stylus';
@@ -41,6 +41,14 @@ const langs: Record<string, any> = {
 };
 
 export default function DirectoryTrees() {
+  const dark = document.documentElement.getAttribute('data-color-mode');
+  const [theme, setTheme] = useState<ReactCodeMirrorProps['theme']>(dark === 'dark' ? 'dark' : 'light');
+  useEffect(() => {
+    setTheme(document.documentElement.getAttribute('data-color-mode') === 'dark' ? 'dark' : 'light');
+    document.addEventListener('colorschemechange', (e) => {
+      setTheme(e.detail.colorScheme as ReactCodeMirrorProps['theme']);
+    });
+  }, []);
   const { loading, content, extname } = useSelector(({ global, loading }: RootState) => ({
     loading: loading.effects.global.getFileContent,
     content: global.content,
@@ -85,10 +93,11 @@ export default function DirectoryTrees() {
       if (langs[extname]) {
         extensions.push(langs[extname]());
       }
-      return <CodeMirror extensions={[...extensions]} editable={false} height="100%" value={content} />;
+      return <CodeMirror theme={theme} extensions={[...extensions]} editable={false} height="100%" value={content} />;
     }
     return <pre style={{ padding: 25 }}>{content}</pre>;
-  }, [extname, content, filePath]);
+  }, [extname, content, filePath, theme]);
+
 
   return (
     <Fragment>

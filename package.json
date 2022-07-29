@@ -17,10 +17,10 @@
   "license": "MIT",
   "dependencies": {
     "@babel/runtime": "^7.18.9",
-    "@codemirror/lang-javascript": "^6.0.2",
-    "@codemirror/lang-json": "^6.0.0",
     "@codemirror/lang-css": "^6.0.0",
     "@codemirror/lang-html": "^6.1.0",
+    "@codemirror/lang-javascript": "^6.0.2",
+    "@codemirror/lang-json": "^6.0.0",
     "@codemirror/lang-xml": "^6.0.0",
     "@codemirror/legacy-modes": "^6.1.0",
     "@rematch/core": "~2.2.0",
@@ -29,13 +29,14 @@
     "@uiw/react-github-corners": "^1.5.14",
     "@uiw/react-markdown-preview": "^4.0.23",
     "@uiw/reset.css": "^1.0.6",
+    "@wcj/dark-mode": "^1.0.15",
     "axios": "^0.27.2",
-    "rehype-rewrite": "^3.0.6",
-    "rehype-video": "^1.2.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "~7.2.6",
     "react-router-dom": "^6.3.0",
+    "rehype-rewrite": "^3.0.6",
+    "rehype-video": "^1.2.2",
     "uiw": "^4.21.14"
   },
   "engines": {
@@ -50,9 +51,9 @@
     "@types/react-dom": "^18.0.6",
     "@types/react-redux": "^7.1.24",
     "husky": "^8.0.1",
+    "kkt": "^7.2.0",
     "lint-staged": "^13.0.3",
-    "prettier": "^2.7.1",
-    "kkt": "^7.2.0"
+    "prettier": "^2.7.1"
   },
   "eslintConfig": {
     "extends": [

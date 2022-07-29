@@ -5,13 +5,17 @@
 }
 
 .header {
-  background-color: #343a40;
+  background-color: var(--color-canvas-subtle);
   padding: 0 16px;
   display: flex;
   align-items: center;
+  border-bottom: 1px solid var(--color-border-default);
+  dark-mode {
+    color: initial;
+  }
   > a {
     display: flex;
-    color: #989898;
+    color: var(--color-theme-text);
     &.github {
       margin-right: 10px;
       margin-left: 10px;
@@ -24,10 +28,37 @@
     }
   }
   > span {
-    color: #989898;
+    color: var(--color-fg-default);
   }
   > div:global(.w-divider) {
-    background-color: #737373;
+    background-color: var(--color-fg-subtle);
     margin-top: 2px;
   }
+}
+
+:global(.w-layout) {
+ background-color: var(--color-canvas-subtle);
+}
+
+:global(.w-menu:not(.w-menu-dark)) {
+  background-color: transparent;
+  color: var(--color-fg-default);
+  a {
+    color: var(--color-fg-default);
+
+  }
+}
+
+:global(.w-split-horizontal > .w-split-bar::before),
+
+:global(.w-split-horizontal > .w-split-bar::after) {
+  box-shadow: inset 0 1px 0 0 var(--color-fg-default), 0 1px 0 0 var(--color-fg-default);
+}
+
+:global(.w-split-bar) {
+  background-color: var(--color-fg-subtle);
+}
+
+:global(.w-split-horizontal > .w-split-bar) {
+  box-shadow: inset 1px 0 0 0 var(--color-border-default), 1px 0 0 0 var(--color-border-default);
 }
