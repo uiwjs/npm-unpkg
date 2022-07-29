@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import Loader from '@uiw/react-loader';
 import { HashRouter, Route, Routes } from 'react-router-dom';
@@ -38,10 +38,12 @@ function App() {
   );
 }
 
-ReactDOM.render(
+const container = document.getElementById('root');
+const root = createRoot(container!);
+
+root.render(
   <Provider store={store}>
     <GitHubCorners size={54} target="_parent" href="https://github.com/uiwjs/npm-unpkg" />
     <App />
-  </Provider>,
-  document.getElementById('root'),
+  </Provider>
 );
