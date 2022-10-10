@@ -37,7 +37,7 @@
     "react-router-dom": "^6.3.0",
     "rehype-rewrite": "^3.0.6",
     "rehype-video": "^1.2.2",
-    "uiw": "^4.21.14"
+    "uiw": "~4.21.19"
   },
   "engines": {
     "node": "^16.0.0"

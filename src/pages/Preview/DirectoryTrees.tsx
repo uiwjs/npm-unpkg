@@ -82,7 +82,7 @@ export default function DirectoryTrees() {
         const collapse = new RegExp(`^${item.path}`).test(pathname);
         menuItems.push(
           <Menu.SubMenu
-            key={idx}
+            key={idx + item.path}
             icon="folder"
             overlayProps={{
               isOpen: collapse,

@@ -36,7 +36,7 @@ export default function Preview() {
   const path = usePath();
 
   useEffect(() => {
-    if (!pkgname || path.pkgName !== pkgname) {
+    if (!pkgname && path.pkgName !== pkgname) {
       dispatch.global.setPkgname(path);
       dispatch.global.getDirectoryTrees({});
       dispatch.global.getPackageJSON({});
