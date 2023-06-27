@@ -36,12 +36,12 @@ export default function Preview() {
   const path = usePath();
 
   useEffect(() => {
-    if (!pkgname && path.pkgName !== pkgname) {
+    if (path.pkgName && path.pkgName !== pkgname) {
       dispatch.global.setPkgname(path);
       dispatch.global.getDirectoryTrees({});
       dispatch.global.getPackageJSON({});
     }
-  }, [pkgname, path.pkgName, dispatch.global, path]);
+  }, [pkgname, dispatch.global, path]);
 
   useEffect(() => {
     document.title = `${path.pkgName} - NPM UNPKG`;
