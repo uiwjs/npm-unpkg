@@ -12,7 +12,7 @@ export default function Search() {
     pkgname: global.pkgname,
   }));
   const dispatch = useDispatch<Dispatch>();
-  const [value, setValue] = useState<string>();
+  const [value, setValue] = useState<string | undefined>(pkgname);
   const navigate = useNavigate();
   const [links] = useState<{ to: string; label: string }[]>([
     {
