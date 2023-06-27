@@ -19,7 +19,7 @@ import styles from './index.module.less';
 
 const { Header, Content } = Layout;
 
-export default function Preview() {
+export function Component() {
   const {
     showSearch,
     notFindPkg,
@@ -67,8 +67,8 @@ export default function Preview() {
 
   const unPkgView = useMemo(
     () => (
-      <a href={`https://unpkg.com/browse/${path.pkgName}/`} target="__blank">
-        unpkg
+      <a className={styles.unpkg} href={`https://unpkg.com/browse/${path.pkgName}/`} target="__blank">
+        UNPKG
       </a>
     ),
     [path.pkgName],
@@ -157,3 +157,5 @@ export default function Preview() {
     </Layout>
   );
 }
+
+Component.displayName = 'PreviewPage';

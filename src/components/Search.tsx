@@ -20,20 +20,20 @@ export default function Search() {
       label: 'uiw',
     },
     {
-      to: '/pkg/vue',
-      label: 'vue',
-    },
-    {
       to: '/pkg/react',
       label: 'react',
     },
     {
-      to: '/pkg/react@17',
-      label: 'react@17',
+      to: '/pkg/vue',
+      label: 'vue',
     },
     {
-      to: '/pkg/react@17.0.1',
-      label: 'react@17.0.1',
+      to: '/pkg/react@18',
+      label: 'react@18',
+    },
+    {
+      to: '/pkg/react@18.2.0',
+      label: 'react@18.2.0',
     },
   ]);
   const name = pkg && pkg.name ? `${pkg.name}@${pkg.version}` : pkgname;
