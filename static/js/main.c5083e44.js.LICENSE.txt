@@ -7,8 +7,6 @@
 
 /*! ieee754. BSD-3-Clause License. Feross Aboukhadijeh <https://feross.org/opensource> */
 
-/*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */
-
 /**
  * @license React
  * scheduler.production.min.js
@@ -20,7 +18,7 @@
  */
 
 /**
- * @remix-run/router v1.7.0
+ * @remix-run/router v1.13.0
  *
  * Copyright (c) Remix Software Inc.
  *
@@ -31,7 +29,7 @@
  */
 
 /**
- * React Router DOM v6.14.0
+ * React Router DOM v6.20.0
  *
  * Copyright (c) Remix Software Inc.
  *
@@ -42,7 +40,7 @@
  */
 
 /**
- * React Router v6.14.0
+ * React Router v6.20.0
  *
  * Copyright (c) Remix Software Inc.
  *
