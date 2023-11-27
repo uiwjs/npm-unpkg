@@ -2,6 +2,7 @@
   "name": "npm-unpkg",
   "version": "2.1.0",
   "description": "A web application to view npm package files, Based on unpkg.",
+  "funding": "https://jaywcjlove.github.io/#/sponsor",
   "private": true,
   "scripts": {
     "prepare": "husky install",

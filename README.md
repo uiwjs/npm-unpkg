@@ -1,6 +1,7 @@
 NPM UNPKG
 ===
 
+[![Buy me a coffee](https://img.shields.io/badge/Buy%20me%20a%20coffee-048754?logo=buymeacoffee)](https://jaywcjlove.github.io/#/sponsor) 
 [![CI Build & Deploy](https://github.com/uiwjs/npm-unpkg/actions/workflows/ci.yml/badge.svg)](https://github.com/uiwjs/npm-unpkg/actions/workflows/ci.yml)
 [![Open in Gitpod](https://shields.io/badge/Open%20in-Gitpod-green?logo=Gitpod)](https://gitpod.io/#https://github.com/uiwjs/npm-unpkg)
 
