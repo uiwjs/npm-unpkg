@@ -13,6 +13,9 @@ export default (conf: Configuration, env: 'production' | 'development', options:
     }),
   );
 
+  /** https://github.com/kktjs/kkt/issues/446 */
+  conf.ignoreWarnings = [ { module: /node_modules[\\/]parse5[\\/]/ } ];
+
   if (env === 'production') {
     conf.output = { ...conf.output, publicPath: './' };
     conf.optimization = {
