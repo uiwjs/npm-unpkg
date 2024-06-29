@@ -37,6 +37,12 @@ export default function Search() {
     },
   ]);
   const name = pkg && pkg.name ? `${pkg.name}@${pkg.version}` : pkgname;
+  const gotoPreview = () => {
+    if (value) {
+      dispatch.global.update({ showSearch: false });
+      navigate(`/pkg/${value}`);
+    }
+  }
   return (
     <Fragment>
       <Input
@@ -47,14 +53,14 @@ export default function Search() {
         onChange={(e) => {
           setValue(e.target.value);
         }}
+        onKeyUp={(e) => {
+          if (e.key === "Enter") {
+            gotoPreview();
+          }
+        }}
         addonAfter={
           <Button
-            onClick={() => {
-              if (value) {
-                dispatch.global.update({ showSearch: false });
-                navigate(`/pkg/${value}`);
-              }
-            }}
+            onClick={gotoPreview}
             icon="arrow-right"
             size="small"
             basic
